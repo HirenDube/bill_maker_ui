@@ -57,7 +57,8 @@ class _ProductsState extends State<Products> {
                 onPressed: () async {
                   SharedPreferences clearData =
                       await SharedPreferences.getInstance();
-                  clearData.clear();
+                    clearData.remove("Products");
+
                 },
                 icon: Icon(Icons.clear))
           ]),

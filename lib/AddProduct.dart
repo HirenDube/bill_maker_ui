@@ -13,6 +13,7 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
+  int addVerificaton = 0;
   String name = "";
   int price = 0;
   int stock = 0;
@@ -199,29 +200,44 @@ class _AddProductState extends State<AddProduct> {
                             borderRadius: BorderRadius.circular(15))),
                     onPressed: () async {
                       if (_addProduct.currentState!.validate()) {
-                        data["productName"].add(name);
-                        data["productId"].add(id);
-                        data["price"].add(price);
-                        data["stock"].add(stock);
-                        // data["gst"].add(int.parse(currentDDvalue));
+                        if (addVerificaton != 1) {
+                          addVerificaton = 1;
+                          data["productName"].add(name);
+                          data["productId"].add(id);
+                          data["price"].add(price);
+                          data["stock"].add(stock);
+                          // data["gst"].add(int.parse(currentDDvalue));
 
-                        SharedPreferences addData =
-                            await SharedPreferences.getInstance();
-                        String value = jsonEncode(data);
-                        addData.setString("Products", value);
+                          SharedPreferences addData =
+                              await SharedPreferences.getInstance();
+                          String value = jsonEncode(data);
+                          addData.setString("Products", value);
 
-                        SnackBar snackBar = SnackBar(
-                          content: Text("Product Added Successfully"),
-                          behavior: SnackBarBehavior.floating,
-                          showCloseIcon: true,
-                          elevation: 5,
-                          backgroundColor: Theme.of(context).primaryColor,
-                          dismissDirection: DismissDirection.horizontal,
-                        );
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(snackBar);
-                        setState(() {});
+                          SnackBar snackBar = SnackBar(
+                            content: Text("Product Added Successfully"),
+                            behavior: SnackBarBehavior.floating,
+                            showCloseIcon: true,
+                            elevation: 5,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            dismissDirection: DismissDirection.horizontal,
+                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                          setState(() {});
+                        } else {
+                          SnackBar snackBar = SnackBar(
+                            content: Text("One product can't be added twice"),
+                            behavior: SnackBarBehavior.floating,
+                            showCloseIcon: true,
+                            elevation: 5,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            dismissDirection: DismissDirection.horizontal,
+                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                        }
                       }
                     },
                     child: Text(
