@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bill_maker_ui/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +18,15 @@ class _AddProductState extends State<AddProduct> {
   int stock = 0;
   int id = 0;
   GlobalKey<FormState> _addProduct = GlobalKey<FormState>();
-  Map data = {"productName":[],"productId":[],"price":[],"stock":[]};
+  Map data = {
+    "productName": <String>[],
+    "productId": <int>[],
+    "price": <int>[],
+    "stock": <int>[],
+    // "gst" : <int>[]
+  };
+
+  String currentDDvalue = "5";
 
   @override
   void initState() {
@@ -46,7 +55,7 @@ class _AddProductState extends State<AddProduct> {
           title: "AddProduct", bgColor: Theme.of(context).primaryColor),
       body: Center(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height - 450,
+          height: MediaQuery.of(context).size.height - 350,
           width: MediaQuery.of(context).size.width - 50,
           child: Form(
             key: _addProduct,
@@ -75,8 +84,8 @@ class _AddProductState extends State<AddProduct> {
                 Divider(color: Colors.transparent),
                 TextFormField(
                   validator: (id1) {
-                    if (id1!.isNotEmpty) {
-                      if (int.tryParse(data["productId"]) != null) {
+                    if (!id1!.isEmpty) {
+                      if (int.tryParse(id1) != null) {
                         if (!((data["productId"]).contains(id1))) {
                           return null;
                         } else {
@@ -107,7 +116,7 @@ class _AddProductState extends State<AddProduct> {
                 TextFormField(
                   validator: (price1) {
                     if (price1!.isNotEmpty) {
-                      if (int.tryParse(data["price"]) != null) {
+                      if (int.tryParse(price1) != null) {
                         return null;
                       } else {
                         return "Price must be a number !!";
@@ -134,7 +143,7 @@ class _AddProductState extends State<AddProduct> {
                 TextFormField(
                   validator: (stock1) {
                     if (stock1!.isNotEmpty) {
-                      if (int.tryParse(data["stock"]) != null) {
+                      if (int.tryParse(stock1) != null) {
                         return null;
                       } else {
                         return "Stock must be a number !!";
@@ -158,6 +167,29 @@ class _AddProductState extends State<AddProduct> {
                           borderRadius: BorderRadius.circular(20))),
                 ),
                 Divider(color: Colors.transparent),
+                // Expanded(
+                //   child: DropdownButton(
+                //       underline: Container(
+                //           height: 1, color: Theme.of(context).primaryColor),
+                //       isExpanded: true,
+                //       alignment: Alignment.center,
+                //       icon: Icon(CupertinoIcons.down_arrow),
+                //       hint: Text("Choose GST"),
+                //       style: TextStyle(fontSize: 20, color: Colors.black),
+                //       borderRadius: BorderRadius.circular(20),
+                //       value: currentDDvalue,
+                //       items: [
+                //         DropdownMenuItem(value: "5", child: Text("5%")),
+                //         DropdownMenuItem(value: "12", child: Text("12%")),
+                //         DropdownMenuItem(value: "18", child: Text("18%")),
+                //         DropdownMenuItem(value: "28", child: Text("28%")),
+                //       ],
+                //       onChanged: (changed) {
+                //         setState(() {
+                //           currentDDvalue = changed!;
+                //         });
+                //       }),
+                // ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         minimumSize:
@@ -171,16 +203,25 @@ class _AddProductState extends State<AddProduct> {
                         data["productId"].add(id);
                         data["price"].add(price);
                         data["stock"].add(stock);
+                        // data["gst"].add(int.parse(currentDDvalue));
 
-                        SharedPreferences addData = await SharedPreferences.getInstance();
+                        SharedPreferences addData =
+                            await SharedPreferences.getInstance();
                         String value = jsonEncode(data);
                         addData.setString("Products", value);
 
-                        SnackBar snackBar =
-                            SnackBar(content: Text("Product Added Successfully"));
+                        SnackBar snackBar = SnackBar(
+                          content: Text("Product Added Successfully"),
+                          behavior: SnackBarBehavior.floating,
+                          showCloseIcon: true,
+                          elevation: 5,
+                          backgroundColor: Theme.of(context).primaryColor,
+                          dismissDirection: DismissDirection.horizontal,
+                        );
                         ScaffoldMessenger.of(context)
                           ..hideCurrentSnackBar()
                           ..showSnackBar(snackBar);
+                        setState(() {});
                       }
                     },
                     child: Text(

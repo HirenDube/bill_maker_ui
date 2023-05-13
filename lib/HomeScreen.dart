@@ -1,6 +1,8 @@
 import 'package:bill_maker_ui/Customers.dart';
+import 'package:bill_maker_ui/MakeInvoice.dart';
 import 'package:bill_maker_ui/Products.dart';
 import 'package:bill_maker_ui/Register.dart';
+import 'package:bill_maker_ui/ShowInvoices.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   operation:
                       () => Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => Registration()))),
+                          builder: (context) => MakeInvoice()))),
               Divider(
                 color: Colors.transparent,
               ),
@@ -62,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   text: 'Show Invoices',
                   operation: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => Registration()))),
+                          builder: (context) => ShowInvoices()))),
             ],
           ),
         ),

@@ -48,23 +48,43 @@ class _ProductsState extends State<Products> {
                 icon: Icon(Icons.add_circle_outline)),
             IconButton(
                 onPressed: () {
-                  setState(() {});
+                  setState(() {
+                    getDataBase();
+                  });
                 },
-                icon: Icon(Icons.refresh))
+                icon: Icon(Icons.refresh)),
+            IconButton(
+                onPressed: () async {
+                  SharedPreferences clearData =
+                      await SharedPreferences.getInstance();
+                  clearData.clear();
+                },
+                icon: Icon(Icons.clear))
           ]),
       body: ListView.builder(
         itemCount: displayedData["productName"].length,
-        itemBuilder: (BuildContext context, int index) => ListTile(style: ListTileStyle.drawer,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          title: Text(displayedData["productName"][index]),
-          subtitle: Text("Id : ${displayedData["productId"][index]}"),
-          trailing: Column(
-            children: [
-              Text("Price : ${displayedData["price"][index]}"),
-              Text("Stock : ${displayedData["stock"][index]}")
-            ],
+        itemBuilder: (BuildContext context, int index) => Card(color: Theme.of(context).secondaryHeaderColor,elevation: 3,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListTile(
+              style: ListTileStyle.drawer,
+              onTap: () {
+                print(displayedData);
+              },
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              title: Text(displayedData["productName"][index]),
+              subtitle: Text("Id : ${displayedData["productId"][index]}"),
+              trailing: Column(
+                children: [
+                  Text("Price : ${displayedData["price"][index]} ₹"),
+                  Text("Stock : ${displayedData["stock"][index]} pieces"),
+                  // Text("GST : ${displayedData["gst"][index]} %"),
+                ],
+              ),
+              leading: Icon(Icons.shopping_bag),
+            ),
           ),
-          leading: Icon(Icons.production_quantity_limits),
         ),
       ),
     );
