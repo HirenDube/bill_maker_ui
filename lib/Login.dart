@@ -132,7 +132,8 @@ class _LoginState extends State<Login> {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HomeScreen()));
                     }
                   },
-                  style: ElevatedButton.styleFrom(
+                  style: ElevatedButton.styleFrom( minimumSize:
+                  Size(MediaQuery.of(context).size.width - 50, 40),
                     backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),

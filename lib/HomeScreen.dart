@@ -1,4 +1,5 @@
 import 'package:bill_maker_ui/Customers.dart';
+import 'package:bill_maker_ui/Products.dart';
 import 'package:bill_maker_ui/Register.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   text: 'Products',
                   operation: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => Registration()))),
+                          builder: (context) => Products()))),
               Divider(
                 color: Colors.transparent,
               ),
@@ -50,7 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               navigatingButton(context,
                   text: 'Make Invoice',
-                  operation: () => Navigator.of(context).push(
+                  operation:
+                      () => Navigator.of(context).push(
                       MaterialPageRoute(
                           builder: (context) => Registration()))),
               Divider(

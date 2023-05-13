@@ -1,22 +1,22 @@
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 
-class AddProduct extends StatefulWidget {
-  const AddProduct({Key? key}) : super(key: key);
+class AddCustomer extends StatefulWidget {
+  const AddCustomer({Key? key}) : super(key: key);
 
   @override
-  State<AddProduct> createState() => _AddProductState();
+  State<AddCustomer> createState() => _AddCustomerState();
 }
 
-class _AddProductState extends State<AddProduct> {
+class _AddCustomerState extends State<AddCustomer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(title: "MyApp",bgColor: Theme.of(context).primaryColor),
-      body: Center(
-        child: Text("MyApp",style: TextStyle(
-          fontSize: 40
-        ),),
+      appBar: buildAppBar(title: "AddCustomer",bgColor: Theme.of(context).primaryColor),
+      body: ListView(
+        children: [
+
+        ],
       ),
     );
   }

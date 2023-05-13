@@ -125,7 +125,8 @@ class _RegistrationState extends State<Registration> {
                 color: Colors.transparent,
               ),
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
+                  style: ElevatedButton.styleFrom( minimumSize:
+                  Size(MediaQuery.of(context).size.width - 50, 40),
                     backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),

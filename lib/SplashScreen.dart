@@ -47,6 +47,11 @@ class _SplashScreenState extends State<SplashScreen>
     }
     else{
       navigate.setBool("Registered", false);
+      Future.delayed(Duration(seconds: 5), () {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => Registration()));
+        lottieController.dispose();
+      });
     }
   }
 

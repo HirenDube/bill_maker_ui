@@ -1,3 +1,4 @@
+import 'package:bill_maker_ui/AddCustomer.dart';
 import 'package:bill_maker_ui/AddProduct.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class _CoustomersState extends State<Coustomers> {
     return Scaffold(
       appBar: buildAppBar(
           title: "Coustomers",
-          bgColor: Theme.of(context).primaryColor,
+           bgColor: Theme.of(context).primaryColor,
           actions: [
             IconButton(
                 onPressed: () => Navigator.of(context).push(
