@@ -10,15 +10,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextStyle style =
+      TextStyle(fontWeight: FontWeight.bold, fontSize: 35, color: Colors.white);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(title: "Bill Maker Ui"),
+      appBar: buildAppBar(
+          title: "Bill Maker Ui", bgColor: Theme.of(context).primaryColor),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            image: DecorationImage(fit: BoxFit.fill,
+            image: DecorationImage(
+                fit: BoxFit.fill,
                 image: AssetImage("assets/images/bill_ui_bg(1).jpg"),
                 colorFilter: ColorFilter.mode(
                     Colors.white.withOpacity(0.2), BlendMode.dstATop))),
@@ -27,16 +32,53 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton.icon(
-                  onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Registration())),
-                  label: Text("Coustomer Section"),
-                  icon: Icon(Icons.forward),
+                Card(
+                  color: Theme.of(context).primaryColor,
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Registration())),
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Customers Section ",
+                            style: style,
+                          ),
+                          Icon(
+                            Icons.forward,
+                            color: Colors.white,
+                            size: 40,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                ElevatedButton.icon(
-                  onPressed: null,
-                  label: Text("Admin Section"),
-                  icon: Icon(Icons.forward),
+                Divider(color: Colors.transparent,),
+                Card(
+                  color: Theme.of(context).primaryColor,
+                  child: InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Admins Section ",
+                            style: style,
+                          ),
+                          Icon(
+                            Icons.forward,
+                            color: Colors.white,
+                            size: 40,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

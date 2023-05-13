@@ -46,7 +46,7 @@ class _RegistrationState extends State<Registration> {
       appBar: buildAppBar(
         title: "User Registration ",
         // title: "User Login ${uname} : ${pname}",
-        bgColor: Colors.teal,
+        bgColor: Theme.of(context).primaryColor,
       ),
       body: Container(
         alignment: Alignment.center,
@@ -80,7 +80,11 @@ class _RegistrationState extends State<Registration> {
                     filled: true),
                 validator: (username1) {
                   if (username1!.isNotEmpty) {
-                    return null;
+                    if (pname.contains(username1)) {
+                      return "Username must be unique !!";
+                    } else {
+                      return null;
+                    }
                   } else {
                     return "Username can't be empty !!";
                   }
@@ -123,6 +127,7 @@ class _RegistrationState extends State<Registration> {
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),
                   onPressed: () async {

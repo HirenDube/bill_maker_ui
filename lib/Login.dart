@@ -18,7 +18,7 @@ class _LoginState extends State<Login> {
   String? username, password;
   List<String> uname = [];
   List<String> pname = [];
-
+  int psCheck = 0;
   var success = "black";
 
   @override
@@ -32,7 +32,6 @@ class _LoginState extends State<Login> {
     final getData = await SharedPreferences.getInstance();
     final uls = getData.getStringList("Users");
     final pls = getData.getStringList("Passes");
-
     uname = uls! ?? uname;
     pname = pls! ?? pname;
   }
@@ -41,8 +40,8 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(
-        title: "User Login ${uname} : ${pname}",
-        bgColor: Colors.teal,
+        title: "User Login ",
+        bgColor: Theme.of(context).primaryColor,
       ),
       body: Container(
         alignment: Alignment.center,
@@ -77,6 +76,7 @@ class _LoginState extends State<Login> {
                 validator: (username1) {
                   if (username1!.isNotEmpty) {
                     if (uname.contains(username1)) {
+                      psCheck = uname.indexOf(username1);
                       return null;
                     } else {
                       return 'Username not found !!';
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
                   } else if (!password1.contains(RegExp(r'[!@#$%^&*()_+]'))) {
                     return "Password should contain atleast one Special Character !!";
                   } else {
-                    if (pname.contains(password1)) {
+                    if (pname[psCheck] == password1) {
                       return null;
                     } else {
                       return "Password is wrong !!";
@@ -138,6 +138,7 @@ class _LoginState extends State<Login> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),
                   child: Text("SUBMIT ${success}"))

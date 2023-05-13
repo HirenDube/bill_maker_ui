@@ -1,4 +1,5 @@
 import "package:bill_maker_ui/HomeScreen.dart";
+import "package:bill_maker_ui/Splash%20Screen.dart";
 import "package:flutter/material.dart";
 
 void main(){
@@ -12,7 +13,10 @@ class BillMakerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      theme: ThemeData(
+        primaryColor: Color(0xFF4300C1)
+      ),
+      home: SplashScreen(),
     );
   }
 }
