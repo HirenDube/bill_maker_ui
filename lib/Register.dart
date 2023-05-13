@@ -20,7 +20,6 @@ class _RegistrationState extends State<Registration> {
   List<String> uname = [];
   List<String> pname = [];
 
-  var success = "black";
 
   @override
   void initState() {
@@ -44,7 +43,7 @@ class _RegistrationState extends State<Registration> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(
-        title: "User Registration ",
+        title: "Admin Registration ",
         // title: "User Login ${uname} : ${pname}",
         bgColor: Theme.of(context).primaryColor,
       ),
@@ -139,13 +138,13 @@ class _RegistrationState extends State<Registration> {
                         pname.add(password!);
                         dataEntry.setStringList("Users", uname);
                         dataEntry.setStringList("Passes", pname);
-                        success = "white";
                       });
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Login()));
+                      dataEntry.setBool("Registered", true);
                     }
                   },
-                  child: Text("SUBMIT ${success}"))
+                  child: Text(" REGISTER "))
             ],
           ),
         ),

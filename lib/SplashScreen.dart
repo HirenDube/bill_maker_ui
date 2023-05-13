@@ -1,6 +1,9 @@
 import 'package:bill_maker_ui/HomeScreen.dart';
+import 'package:bill_maker_ui/Login.dart';
+import 'package:bill_maker_ui/Register.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -15,16 +18,36 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void initState() {
+
     // TODO: implement initState
     lottieController =
         AnimationController(duration: Duration(seconds: 1), vsync: this)
           ..repeat(reverse: true);
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()));
-      lottieController.dispose();
-    });
+    registartionVerfy();
+
     super.initState();
+  }
+
+   registartionVerfy() async {
+    SharedPreferences navigate = await SharedPreferences.getInstance();
+    if (navigate.getBool("Registered") != null) {
+      if (navigate.getBool("Registered")!) {
+        Future.delayed(Duration(seconds: 5), () {
+          Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+          lottieController.dispose();
+        });
+      } else {
+        Future.delayed(Duration(seconds: 5), () {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => Registration()));
+          lottieController.dispose();
+        });
+      }
+    }
+    else{
+      navigate.setBool("Registered", false);
+    }
   }
 
   @override
@@ -32,6 +55,7 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: SafeArea(
           child: Center(
+
         child: Lottie.asset("assets/lotties/pay_bill.json",
             height: MediaQuery.of(context).size.height - 200,
             width: MediaQuery.of(context).size.width - 200),

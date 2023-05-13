@@ -1,3 +1,4 @@
+import 'package:bill_maker_ui/HomeScreen.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,6 @@ class _LoginState extends State<Login> {
   List<String> uname = [];
   List<String> pname = [];
   int psCheck = 0;
-  var success = "black";
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(
-        title: "User Login ",
+        title: "Admin Login ",
         bgColor: Theme.of(context).primaryColor,
       ),
       body: Container(
@@ -129,19 +129,14 @@ class _LoginState extends State<Login> {
                   onPressed: () async {
                     if (_userKey.currentState!.validate() &&
                         _passKey.currentState!.validate()) {
-                      // final dataEntry = await SharedPreferences.getInstance();
-                      setState(() {
-                        // dataEntry.setStringList("User 1", [username!, password!]);
-                        // print(dataEntry.getStringList("User 1"));
-                        success = "white";
-                      });
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HomeScreen()));
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),
-                  child: Text("SUBMIT ${success}"))
+                  child: Text(" LOGIN "))
             ],
           ),
         ),

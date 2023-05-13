@@ -1,3 +1,4 @@
+import 'package:bill_maker_ui/Customers.dart';
 import 'package:bill_maker_ui/Register.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextStyle style =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 35, color: Colors.white);
+      TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -28,58 +29,70 @@ class _HomeScreenState extends State<HomeScreen> {
                 colorFilter: ColorFilter.mode(
                     Colors.white.withOpacity(0.2), BlendMode.dstATop))),
         child: Center(
-          child: IntrinsicWidth(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              navigatingButton(context,
+                  text: 'Products',
+                  operation: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => Registration()))),
+              Divider(
+                color: Colors.transparent,
+              ),
+              navigatingButton(context,
+                  text: 'Customers',
+                  operation: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => Coustomers()))),
+              Divider(
+                color: Colors.transparent,
+              ),
+              navigatingButton(context,
+                  text: 'Make Invoice',
+                  operation: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => Registration()))),
+              Divider(
+                color: Colors.transparent,
+              ),
+              navigatingButton(context,
+                  text: 'Show Invoices',
+                  operation: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => Registration()))),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Card navigatingButton(BuildContext context,
+      {required String text, required operation()}) {
+    return Card(
+      shadowColor: Colors.black,
+      elevation: 3,
+      color: Theme.of(context).primaryColor,
+      child: SizedBox(
+        width: 230,
+        child: InkWell(
+          onTap: operation,
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Card(
-                  color: Theme.of(context).primaryColor,
-                  child: InkWell(
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Registration())),
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Customers Section ",
-                            style: style,
-                          ),
-                          Icon(
-                            Icons.forward,
-                            color: Colors.white,
-                            size: 40,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                Text(
+                  text,
+                  style: style,
                 ),
-                Divider(color: Colors.transparent,),
-                Card(
-                  color: Theme.of(context).primaryColor,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Admins Section ",
-                            style: style,
-                          ),
-                          Icon(
-                            Icons.forward,
-                            color: Colors.white,
-                            size: 40,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                Icon(
+                  Icons.forward,
+                  color: Colors.white,
+                  size: 40,
+                )
               ],
             ),
           ),
