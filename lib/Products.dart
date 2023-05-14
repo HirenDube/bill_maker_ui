@@ -5,6 +5,8 @@ import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'UpdateProduct.dart';
+
 class Products extends StatefulWidget {
   const Products({Key? key}) : super(key: key);
 
@@ -20,6 +22,9 @@ class _ProductsState extends State<Products> {
     "stock": []
   };
 
+  bool readyToDelete = false;
+  List<bool> selection = <bool>[];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -31,8 +36,7 @@ class _ProductsState extends State<Products> {
     SharedPreferences getData = await SharedPreferences.getInstance();
     if (getData.getString("Products") != null) {
       displayedProductData = jsonDecode(getData.getString("Products")!);
-      setState(() {
-      });
+      setState(() {});
     }
   }
 
@@ -58,37 +62,58 @@ class _ProductsState extends State<Products> {
                 onPressed: () async {
                   SharedPreferences clearData =
                       await SharedPreferences.getInstance();
-                  clearData.remove("Products");
+                  setState(() {
+                    for(bool ij in selection){
+                      if(ij){
+
+                      }
+                    }
+                    // clearData.remove("Products");
+                  });
                 },
-                icon: Icon(Icons.clear))
+                icon: Icon(Icons.done_all))
           ]),
       body: ListView.builder(
         itemCount: displayedProductData["productName"].length,
         itemBuilder: (BuildContext context, int index) => Card(
-          color: Theme.of(context).secondaryHeaderColor,
           elevation: 3,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ListTile(
-              style: ListTileStyle.drawer,
-              onTap: () {
-                print(displayedProductData);
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              title: Text(displayedProductData["productName"][index]),
-              subtitle:
-                  Text("Id : ${displayedProductData["productId"][index]}"),
-              trailing: Column(
-                children: [
-                  Text("Price : ${displayedProductData["price"][index]} ₹"),
-                  Text(
-                      "Stock : ${displayedProductData["stock"][index]} pieces"),
-                  // Text("GST : ${displayedData["gst"][index]} %"),
-                ],
-              ),
-              leading: Icon(Icons.shopping_cart),
-            ),
+          color: Theme.of(context).secondaryHeaderColor,
+          child: ListTile(
+            style: ListTileStyle.drawer,
+            onLongPress: () {
+              setState(() {
+                readyToDelete = !readyToDelete;
+                selection = List.generate(
+                    (displayedProductData["productName"]).length,
+                    (index) => false);
+              });
+            },
+            onTap: () {
+              if (readyToDelete) {
+                setState(() {
+                  selection[index] = !selection[index];
+                });
+              }
+              else {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateProduct()));
+              }
+            },
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            title: Text(displayedProductData["productName"][index]),
+            subtitle: Text("Id : ${displayedProductData["productId"][index]}"),
+            trailing: Text("Price  : ${displayedProductData["price"][index]} ₹"
+                "\nStock : ${displayedProductData["stock"][index]} pieces"),
+            // Text("GST : ${displayedData["gst"][index]} %"),
+            leading: readyToDelete
+                ? Checkbox(
+                    value: selection[index],
+                    onChanged: (ckecked) {
+                      setState(() {
+                        selection[index] = ckecked!;
+                      });
+                    })
+                : Icon(Icons.shopping_cart),
           ),
         ),
       ),
