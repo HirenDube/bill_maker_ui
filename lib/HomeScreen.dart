@@ -1,10 +1,12 @@
 import 'package:bill_maker_ui/Customers.dart';
+import 'package:bill_maker_ui/Login.dart';
 import 'package:bill_maker_ui/MakeInvoice.dart';
 import 'package:bill_maker_ui/Products.dart';
-import 'package:bill_maker_ui/Register.dart';
 import 'package:bill_maker_ui/ShowInvoices.dart';
+import 'package:bill_maker_ui/SplashScreen.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -38,33 +40,59 @@ class _HomeScreenState extends State<HomeScreen> {
               navigatingButton(context,
                   text: 'Products',
                   operation: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => Products()))),
+                      MaterialPageRoute(builder: (context) => Products()))),
               Divider(
                 color: Colors.transparent,
               ),
               navigatingButton(context,
                   text: 'Customers',
                   operation: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => Coustomers()))),
+                      MaterialPageRoute(builder: (context) => Coustomers()))),
               Divider(
                 color: Colors.transparent,
               ),
               navigatingButton(context,
                   text: 'Make Invoice',
-                  operation:
-                      () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => MakeInvoice()))),
+                  operation: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MakeInvoice()))),
               Divider(
                 color: Colors.transparent,
               ),
               navigatingButton(context,
                   text: 'Show Invoices',
                   operation: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => ShowInvoices()))),
+                      MaterialPageRoute(builder: (context) => ShowInvoices()))),
+              Divider(
+                color: Colors.transparent,
+              ),
+              navigatingButton(context,icon: Icons.logout,
+                  text: 'Logout',
+                  operation: () => showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            elevation: 5,
+                            actionsAlignment: MainAxisAlignment.spaceEvenly,
+                            title: Text("Are you sure you want to logout ?"),
+                            actions: [
+                              TextButton(
+                                  onPressed: () async {
+                                    SharedPreferences setData =
+                                        await SharedPreferences.getInstance();
+                                    setData.setBool("LoggedIn", false);
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) => SplashScreen()));
+                                  },
+                                  child: Text("YES")),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("NO")),
+                            ],
+                          ))),
             ],
           ),
         ),
@@ -73,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Card navigatingButton(BuildContext context,
-      {required String text, required operation()}) {
+      {required String text, required operation(),IconData icon = Icons.forward}) {
     return Card(
       shadowColor: Colors.black,
       elevation: 3,
@@ -93,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: style,
                 ),
                 Icon(
-                  Icons.forward,
+                  icon,
                   color: Colors.white,
                   size: 40,
                 )

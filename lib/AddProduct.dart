@@ -19,7 +19,7 @@ class _AddProductState extends State<AddProduct> {
   int stock = 0;
   int id = 0;
   GlobalKey<FormState> _addProduct = GlobalKey<FormState>();
-  Map data = {
+  Map productData = {
     "productName": <String>[],
     "productId": <int>[],
     "price": <int>[],
@@ -42,7 +42,7 @@ class _AddProductState extends State<AddProduct> {
   void getData() async {
     SharedPreferences getData = await SharedPreferences.getInstance();
     if (getData.getString("Products") != null) {
-      data = jsonDecode(getData.getString("Products")!);
+      productData = jsonDecode(getData.getString("Products")!);
     } else {
       getData.setString("Products",
           '{"productName":[],"productId":[],"price":[],"stock":[]}');
@@ -87,7 +87,7 @@ class _AddProductState extends State<AddProduct> {
                   validator: (id1) {
                     if (!id1!.isEmpty) {
                       if (int.tryParse(id1) != null) {
-                        if (!((data["productId"]).contains(id1))) {
+                        if (!((productData["productId"]).contains(int.parse(id1)))) {
                           return null;
                         } else {
                           return "Product ID must be unique !!";
@@ -202,15 +202,15 @@ class _AddProductState extends State<AddProduct> {
                       if (_addProduct.currentState!.validate()) {
                         if (addVerificaton != 1) {
                           addVerificaton = 1;
-                          data["productName"].add(name);
-                          data["productId"].add(id);
-                          data["price"].add(price);
-                          data["stock"].add(stock);
+                          productData["productName"].add(name);
+                          productData["productId"].add(id);
+                          productData["price"].add(price);
+                          productData["stock"].add(stock);
                           // data["gst"].add(int.parse(currentDDvalue));
 
                           SharedPreferences addData =
                               await SharedPreferences.getInstance();
-                          String value = jsonEncode(data);
+                          String value = jsonEncode(productData);
                           addData.setString("Products", value);
 
                           SnackBar snackBar = SnackBar(

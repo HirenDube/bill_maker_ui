@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:bill_maker_ui/AddCustomer.dart';
 import 'package:bill_maker_ui/AddProduct.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
-  Map displayedData = {
+  Map displayedProductData = {
     "productName": [],
     "productId": [],
     "price": [],
@@ -31,7 +30,9 @@ class _ProductsState extends State<Products> {
   void getDataBase() async {
     SharedPreferences getData = await SharedPreferences.getInstance();
     if (getData.getString("Products") != null) {
-      displayedData = jsonDecode(getData.getString("Products")!);
+      displayedProductData = jsonDecode(getData.getString("Products")!);
+      setState(() {
+      });
     }
   }
 
@@ -57,33 +58,36 @@ class _ProductsState extends State<Products> {
                 onPressed: () async {
                   SharedPreferences clearData =
                       await SharedPreferences.getInstance();
-                    clearData.remove("Products");
-
+                  clearData.remove("Products");
                 },
                 icon: Icon(Icons.clear))
           ]),
       body: ListView.builder(
-        itemCount: displayedData["productName"].length,
-        itemBuilder: (BuildContext context, int index) => Card(color: Theme.of(context).secondaryHeaderColor,elevation: 3,
+        itemCount: displayedProductData["productName"].length,
+        itemBuilder: (BuildContext context, int index) => Card(
+          color: Theme.of(context).secondaryHeaderColor,
+          elevation: 3,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: ListTile(
               style: ListTileStyle.drawer,
               onTap: () {
-                print(displayedData);
+                print(displayedProductData);
               },
-              shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              title: Text(displayedData["productName"][index]),
-              subtitle: Text("Id : ${displayedData["productId"][index]}"),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              title: Text(displayedProductData["productName"][index]),
+              subtitle:
+                  Text("Id : ${displayedProductData["productId"][index]}"),
               trailing: Column(
                 children: [
-                  Text("Price : ${displayedData["price"][index]} ₹"),
-                  Text("Stock : ${displayedData["stock"][index]} pieces"),
+                  Text("Price : ${displayedProductData["price"][index]} ₹"),
+                  Text(
+                      "Stock : ${displayedProductData["stock"][index]} pieces"),
                   // Text("GST : ${displayedData["gst"][index]} %"),
                 ],
               ),
-              leading: Icon(Icons.shopping_bag),
+              leading: Icon(Icons.shopping_cart),
             ),
           ),
         ),

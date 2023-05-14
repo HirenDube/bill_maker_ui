@@ -18,7 +18,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void initState() {
-
     // TODO: implement initState
     lottieController =
         AnimationController(duration: Duration(seconds: 1), vsync: this)
@@ -28,15 +27,25 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
   }
 
-   registartionVerfy() async {
+  registartionVerfy() async {
     SharedPreferences navigate = await SharedPreferences.getInstance();
     if (navigate.getBool("Registered") != null) {
       if (navigate.getBool("Registered")!) {
-        Future.delayed(Duration(seconds: 5), () {
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) => Login()));
-          lottieController.dispose();
-        });
+        if (navigate.getBool("LoggedIn") != null) {
+          if (navigate.getBool("LoggedIn")!) {
+            Future.delayed(Duration(seconds: 5), () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
+              lottieController.dispose();
+            });
+          } else {
+            Future.delayed(Duration(seconds: 5), () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => Login()));
+              lottieController.dispose();
+            });
+          }
+        }
       } else {
         Future.delayed(Duration(seconds: 5), () {
           Navigator.of(context).pushReplacement(
@@ -44,8 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
           lottieController.dispose();
         });
       }
-    }
-    else{
+    } else {
       navigate.setBool("Registered", false);
       Future.delayed(Duration(seconds: 5), () {
         Navigator.of(context).pushReplacement(
@@ -60,7 +68,6 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: SafeArea(
           child: Center(
-
         child: Lottie.asset("assets/lotties/pay_bill.json",
             height: MediaQuery.of(context).size.height - 200,
             width: MediaQuery.of(context).size.width - 200),

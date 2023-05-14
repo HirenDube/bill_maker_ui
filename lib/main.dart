@@ -16,7 +16,7 @@ class BillMakerApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xFF4300C1)
       ),
-      home: HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }

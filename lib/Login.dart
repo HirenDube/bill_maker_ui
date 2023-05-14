@@ -129,6 +129,8 @@ class _LoginState extends State<Login> {
                   onPressed: () async {
                     if (_userKey.currentState!.validate() &&
                         _passKey.currentState!.validate()) {
+                      SharedPreferences setData = await SharedPreferences.getInstance();
+                      setData.setBool("LoggedIn", true);
                       Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HomeScreen()));
                     }
                   },
