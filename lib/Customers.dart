@@ -19,6 +19,10 @@ class _CoustomersState extends State<Coustomers> {
     "cusMNo": <int>[],
   };
 
+  List<bool> selection = <bool>[];
+
+  bool readyToDelete = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -30,9 +34,7 @@ class _CoustomersState extends State<Coustomers> {
     SharedPreferences getData = await SharedPreferences.getInstance();
     if (getData.getString("Customers") != null) {
       displayedCusData = jsonDecode(getData.getString("Customers")!);
-      setState(() {
-
-      });
+      setState(() {});
     }
   }
 
@@ -55,13 +57,71 @@ class _CoustomersState extends State<Coustomers> {
                     print(displayedCusData);
                   },
                   icon: Icon(Icons.refresh)),
-              IconButton(
-                  onPressed: () async {
-                    SharedPreferences clearData =
-                        await SharedPreferences.getInstance();
-                    clearData.remove("Customers");
-                  },
-                  icon: Icon(Icons.clear))
+              Visibility(visible: readyToDelete,
+                child: IconButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text(
+                                    "Are you sure you want to remove these customers ?"),actionsAlignment: MainAxisAlignment.spaceEvenly,
+                                actions: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      for (int j = 0;
+                                          j < displayedCusData["cusName"].length;
+                                          j++) {
+                                        if (selection[j]) {
+                                          displayedCusData["cusName"].removeAt(j);
+                                          displayedCusData["cusAd"].removeAt(j);
+                                          displayedCusData["cusMNo"].removeAt(j);
+                                        }
+                                      }
+                                      SharedPreferences clearData =
+                                          await SharedPreferences.getInstance();
+                                      setState(() {
+                                        clearData.setString("Customers",
+                                            jsonEncode(displayedCusData));
+                                      });
+
+                                      selection = List.generate(
+                                          displayedCusData["cusName"].length,
+                                          (index) => false);
+                                      Navigator.pop(context);
+                                      SnackBar snackBar = SnackBar(
+                                        content: Text(
+                                            "Customers removed successfully ..."),
+                                        behavior: SnackBarBehavior.floating,
+                                        dismissDirection:
+                                            DismissDirection.horizontal,
+                                        showCloseIcon: true,
+                                        backgroundColor:
+                                            Theme.of(context).primaryColor,
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                        ..hideCurrentSnackBar()
+                                        ..showSnackBar(snackBar);
+
+                                    },
+                                    child: Text(
+                                      "YES",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "NO",
+                                      style: TextStyle(color: Colors.green),
+                                    ),
+                                  )
+                                ],
+                              )); // showDialogue
+                    },
+                    icon: Icon(Icons.done_all)),
+              )
             ]),
         body: ListView.builder(
             itemCount: displayedCusData["cusName"].length,
@@ -70,15 +130,27 @@ class _CoustomersState extends State<Coustomers> {
                   elevation: 3,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: ListTile(isThreeLine: true,
+                    child: ListTile(
+                      onLongPress: () {
+                        setState(() {
+                          readyToDelete = !readyToDelete;
+                          selection = List.generate(
+                              displayedCusData["cusName"].length,
+                                  (index) => false);
+                        });
+                      },
+                      isThreeLine: true,
                       style: ListTileStyle.drawer,
                       onTap: () {
-                        // print(displayedCusData);
+                        if(readyToDelete){
+                         setState(() {
+                           selection[index] = !selection[index];
+                         });
+                        }
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
-                      title: Text(
-                             "${displayedCusData["cusName"][index]}"),
+                      title: Text("${displayedCusData["cusName"][index]}"),
                       // title: Text(
                       //        "Name          : ${displayedCusData["cusName"][index]}"),
                       subtitle: Text(
@@ -88,14 +160,15 @@ class _CoustomersState extends State<Coustomers> {
                         softWrap: true,
                         textAlign: TextAlign.left,
                       ),
-                      // subtitle: Text(
-                      //   "Mo.              :  ${displayedCusData["cusMNo"][index]}\n"
-                      //   "Address      : ${(displayedCusData["cusAd"][index]) != null ? (displayedCusData["cusAd"][index]) : "No Address"}",
-                      //   selectionColor: Colors.blue,
-                      //   softWrap: true,
-                      //   textAlign: TextAlign.left,
-                      // ),
-                      leading: Icon(Icons.account_circle_outlined),
+                      leading: readyToDelete
+                          ? Checkbox(
+                              value: selection[index],
+                              onChanged: (checked) {
+                                setState(() {
+                                  selection[index] = checked!;
+                                });
+                              })
+                          : Icon(Icons.account_circle_outlined),
                     ),
                   ),
                 )));

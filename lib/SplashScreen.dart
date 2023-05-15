@@ -33,13 +33,13 @@ class _SplashScreenState extends State<SplashScreen>
       if (navigate.getBool("Registered")!) {
         if (navigate.getBool("LoggedIn") != null) {
           if (navigate.getBool("LoggedIn")!) {
-            Future.delayed(Duration(seconds: 5), () {
+            Future.delayed(Duration(seconds: 3), () {
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => HomeScreen()));
               lottieController.dispose();
             });
           } else {
-            Future.delayed(Duration(seconds: 5), () {
+            Future.delayed(Duration(seconds: 3), () {
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => Login()));
               lottieController.dispose();

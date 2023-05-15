@@ -24,6 +24,7 @@ class _ProductsState extends State<Products> {
 
   bool readyToDelete = false;
   List<bool> selection = <bool>[];
+  List removedSelection = [null];
 
   @override
   void initState() {
@@ -58,20 +59,78 @@ class _ProductsState extends State<Products> {
                   });
                 },
                 icon: Icon(Icons.refresh)),
-            IconButton(
-                onPressed: () async {
-                  SharedPreferences clearData =
-                      await SharedPreferences.getInstance();
-                  setState(() {
-                    for(bool ij in selection){
-                      if(ij){
+            Visibility(
+              visible: readyToDelete,
+              child: IconButton(
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text(
+                                "Are you sure you want to delete these products ?"),
+                            actionsAlignment: MainAxisAlignment.spaceEvenly,
+                            actions: [
+                              TextButton(
+                                  onPressed: () async {
+                                    SharedPreferences clearData =
+                                        await SharedPreferences.getInstance();
 
-                      }
-                    }
-                    // clearData.remove("Products");
-                  });
-                },
-                icon: Icon(Icons.done_all))
+                                    for (int i = 0;
+                                        i <
+                                            displayedProductData["productName"]
+                                                .length;
+                                        i++) {
+                                      if (selection[i]) {
+                                        displayedProductData["productName"]
+                                            .removeAt(i);
+
+                                        displayedProductData["productId"]
+                                            .removeAt(i);
+
+                                        displayedProductData["price"]
+                                            .removeAt(i);
+
+                                        displayedProductData["stock"]
+                                            .removeAt(i);
+                                      }
+                                    }
+                                    setState(() {
+                                      clearData.setString("Products",
+                                          jsonEncode(displayedProductData));
+                                    });
+                                    selection = List.generate(
+                                        (displayedProductData["productName"])
+                                            .length,
+                                        (index) => false);
+                                    Navigator.pop(context);
+
+                                    SnackBar snkbar = SnackBar(
+                                      content: Text(
+                                          "Products removed successfully ..."),
+                                      behavior: SnackBarBehavior.floating,
+                                      dismissDirection:
+                                          DismissDirection.horizontal,
+                                      showCloseIcon: true,
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                      ..hideCurrentSnackBar()
+                                      ..showSnackBar(snkbar);
+                                  },
+                                  child: Text("YES",
+                                      style: TextStyle(color: Colors.red))),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    "NO",
+                                    style: TextStyle(color: Colors.green),
+                                  )),
+                            ],
+                          )),
+                  icon: Icon(Icons.done_all)),
+            )
           ]),
       body: ListView.builder(
         itemCount: displayedProductData["productName"].length,
@@ -93,9 +152,9 @@ class _ProductsState extends State<Products> {
                 setState(() {
                   selection[index] = !selection[index];
                 });
-              }
-              else {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateProduct()));
+              } else {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => UpdateProduct()));
               }
             },
             shape:
