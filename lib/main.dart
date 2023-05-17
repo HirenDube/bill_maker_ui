@@ -14,6 +14,7 @@ class BillMakerApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+
         primaryColor: Color(0xFF4300C1)
       ),
       home: SplashScreen(),

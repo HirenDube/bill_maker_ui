@@ -1,6 +1,5 @@
 import 'package:bill_maker_ui/Customers.dart';
-import 'package:bill_maker_ui/Login.dart';
-import 'package:bill_maker_ui/MakeInvoice.dart';
+import 'package:bill_maker_ui/MakeInvoice(1).dart';
 import 'package:bill_maker_ui/Products.dart';
 import 'package:bill_maker_ui/ShowInvoices.dart';
 import 'package:bill_maker_ui/SplashScreen.dart';
@@ -54,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
               navigatingButton(context,
                   text: 'Make Invoice',
                   operation: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MakeInvoice()))),
+                      MaterialPageRoute(builder: (context) => MakeInvoice1()))),
               Divider(
                 color: Colors.transparent,
               ),
