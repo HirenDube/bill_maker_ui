@@ -1,9 +1,9 @@
 import 'package:bill_maker_ui/About%20Us/AboutUs.dart';
-import 'package:bill_maker_ui/Customers.dart';
+import 'package:bill_maker_ui/Customers/Customers.dart';
 import 'package:bill_maker_ui/Invoices/MakeInvoice01.dart';
-import 'package:bill_maker_ui/Products.dart';
+import 'package:bill_maker_ui/Products/Products.dart';
 import 'package:bill_maker_ui/Invoices/ShowInvoices.dart';
-import 'package:bill_maker_ui/SplashScreen.dart';
+import 'package:bill_maker_ui/Initial%20App%20Screens/SplashScreen.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

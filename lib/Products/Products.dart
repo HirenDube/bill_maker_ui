@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:bill_maker_ui/AddProduct.dart';
+import 'package:bill_maker_ui/Products/AddProduct.dart';
+import 'package:bill_maker_ui/Products/UpdateProduct.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'UpdateProduct.dart';
 
 class Products extends StatefulWidget {
   const Products({Key? key}) : super(key: key);

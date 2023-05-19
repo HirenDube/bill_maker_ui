@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bill_maker_ui/AddCustomer.dart';
+import 'package:bill_maker_ui/Customers/AddCustomer.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

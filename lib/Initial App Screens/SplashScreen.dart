@@ -1,6 +1,6 @@
-import 'package:bill_maker_ui/HomeScreen.dart';
-import 'package:bill_maker_ui/Login.dart';
-import 'package:bill_maker_ui/Register.dart';
+import 'package:bill_maker_ui/Initial%20App%20Screens/HomeScreen.dart';
+import 'package:bill_maker_ui/Initial%20App%20Screens/Login.dart';
+import 'package:bill_maker_ui/Initial%20App%20Screens/Register.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';

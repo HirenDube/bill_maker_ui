@@ -1,5 +1,4 @@
-import "package:bill_maker_ui/HomeScreen.dart";
-import "package:bill_maker_ui/SplashScreen.dart";
+import 'package:bill_maker_ui/Initial%20App%20Screens/SplashScreen.dart';
 import "package:flutter/material.dart";
 
 void main() {
