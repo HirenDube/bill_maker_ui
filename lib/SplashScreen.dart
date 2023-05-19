@@ -45,9 +45,16 @@ class _SplashScreenState extends State<SplashScreen>
               lottieController.dispose();
             });
           }
+        } else {
+          navigate.setBool("LoggedIn", false);
+          Future.delayed(Duration(seconds: 3), () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => Login()));
+            lottieController.dispose();
+          });
         }
       } else {
-        Future.delayed(Duration(seconds: 5), () {
+        Future.delayed(Duration(seconds: 3), () {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => Registration()));
           lottieController.dispose();
@@ -55,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
       }
     } else {
       navigate.setBool("Registered", false);
-      Future.delayed(Duration(seconds: 5), () {
+      Future.delayed(Duration(seconds: 3), () {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => Registration()));
         lottieController.dispose();

@@ -1,7 +1,8 @@
+import 'package:bill_maker_ui/About%20Us/AboutUs.dart';
 import 'package:bill_maker_ui/Customers.dart';
-import 'package:bill_maker_ui/MakeInvoice(1).dart';
+import 'package:bill_maker_ui/Invoices/MakeInvoice01.dart';
 import 'package:bill_maker_ui/Products.dart';
-import 'package:bill_maker_ui/ShowInvoices.dart';
+import 'package:bill_maker_ui/Invoices/ShowInvoices.dart';
 import 'package:bill_maker_ui/SplashScreen.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(
-          title: "Bill Maker Ui", bgColor: Theme.of(context).primaryColor),
+          title: "Bill Maker Ui",
+          bgColor: Theme.of(context).primaryColor,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => AboutUs()));
+                },
+                icon: Icon(Icons.info_outline))
+          ]),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -64,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Divider(
                 color: Colors.transparent,
               ),
-              navigatingButton(context,icon: Icons.logout,
+              navigatingButton(context,
+                  icon: Icons.logout,
                   text: 'Logout',
                   operation: () => showDialog(
                       context: context,
@@ -82,7 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     setData.setBool("LoggedIn", false);
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
-                                            builder: (context) => SplashScreen()));
+                                            builder: (context) =>
+                                                SplashScreen()));
                                   },
                                   child: Text("YES")),
                               TextButton(
@@ -100,7 +112,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Card navigatingButton(BuildContext context,
-      {required String text, required operation(),IconData icon = Icons.forward}) {
+      {required String text,
+      required operation(),
+      IconData icon = Icons.forward}) {
     return Card(
       shadowColor: Colors.black,
       elevation: 3,

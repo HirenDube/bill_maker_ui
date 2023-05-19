@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
@@ -20,9 +21,11 @@ class _InvoiceState extends State<Invoice> {
   };
   Map dataC = {};
   List<String> uname = <String>["tom"], pname = <String>[];
-  int total = 0, invoiceNo = 1;
+  int total = 0, invoiceNo = 0;
   bool saved = false;
   List productNames = [];
+
+  Color invoiceColor = Colors.redAccent;
 
   ScreenshotController ssController = ScreenshotController();
 
@@ -32,6 +35,7 @@ class _InvoiceState extends State<Invoice> {
     getDATA();
     productNames = dataP["productName"];
     print(productNames);
+    invoiceColor = Color(0xFF4300C1).withOpacity(0.8);
     super.initState();
   }
 
@@ -68,6 +72,93 @@ class _InvoiceState extends State<Invoice> {
           title: "Invoice",
           bgColor: Theme.of(context).primaryColor,
           actions: [
+            GestureDetector(
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  invoiceColor = Colors.red;
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: Colors.red,
+                              ),
+                            ),GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  invoiceColor = Colors.teal;
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: Colors.teal,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  invoiceColor = Colors.blue;
+                                  Navigator.pop(context);
+                                });
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: Colors.blue,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  invoiceColor = Colors.black;
+                                  Navigator.pop(context);
+                                });
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: Colors.black,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  invoiceColor = Colors.deepOrangeAccent;
+                                  Navigator.pop(context);
+                                });
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: Colors.deepOrangeAccent,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  invoiceColor =
+                                      Color(0xFF4300C1).withOpacity(0.8);
+                                  Navigator.pop(context);
+                                });
+                              },
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    Color(0xFF4300C1).withOpacity(0.8),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+              child: Container(
+                height: 25,
+                width: 25,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: invoiceColor,
+                    border: Border.all(width: 2, color: Colors.black)),
+              ),
+            ),
             IconButton(
                 onPressed: () {
                   setState(() {
@@ -89,6 +180,17 @@ class _InvoiceState extends State<Invoice> {
                       saveImage(imageBytes);
                     }
                   });
+
+                  // ScaffoldMessenger.of(context)
+                  //   ..hideCurrentSnackBar()
+                  //   ..showSnackBar(SnackBar(
+                  //     content: Text("Invoice successfully saved to gallery"),
+                  //     behavior: SnackBarBehavior.floating,
+                  //     dismissDirection: DismissDirection.horizontal,
+                  //     showCloseIcon: true,
+                  //   ));
+                  Fluttertoast.showToast(
+                      msg: "Invoice successfully saved to gallery");
                 },
                 icon: Icon(Icons.save)),
           ]),
@@ -103,8 +205,7 @@ class _InvoiceState extends State<Invoice> {
               Container(
                   alignment: Alignment.center,
                   height: 70,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(0.8)),
+                  decoration: BoxDecoration(color: invoiceColor),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -116,7 +217,7 @@ class _InvoiceState extends State<Invoice> {
                             ?.copyWith(color: Colors.white),
                       ),
                       Text(
-                        " @${uname[0]}  ",
+                        " ${uname[0]}  ",
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall
@@ -211,7 +312,7 @@ class _InvoiceState extends State<Invoice> {
                     ),
                     Divider(
                       thickness: 3,
-                      color: Theme.of(context).primaryColor.withOpacity(0.8),
+                      color: invoiceColor,
                       indent: 10,
                       endIndent: 10,
                     ),
@@ -220,23 +321,14 @@ class _InvoiceState extends State<Invoice> {
                         DataColumn(
                             label: Text(
                           "Product Name",
-                          style: TextStyle(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.8)),
+                          style: TextStyle(color: invoiceColor),
                         )),
                         DataColumn(
                             label: Text("Quantity",
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.8)))),
+                                style: TextStyle(color: invoiceColor))),
                         DataColumn(
                             label: Text("Price ",
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.8))))
+                                style: TextStyle(color: invoiceColor)))
                       ], rows: [
                         for (int a = 0; a < dataP["productName"].length; a++)
                           DataRow(cells: [
@@ -259,50 +351,26 @@ class _InvoiceState extends State<Invoice> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text("Sub Total\n",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8))),
+                                  style: TextStyle(color: invoiceColor)),
                               Text("Tax\n",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8))),
+                                  style: TextStyle(color: invoiceColor)),
                               Text("Total\n",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8))),
+                                  style: TextStyle(color: invoiceColor)),
                               Text("Total Amount to be Paid",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8))),
+                                  style: TextStyle(color: invoiceColor)),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text("$total.00 ₹\n",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8))),
+                                  style: TextStyle(color: invoiceColor)),
                               Text("0.00 ₹\n",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8))),
+                                  style: TextStyle(color: invoiceColor)),
                               Text("$total.00 ₹\n",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8))),
+                                  style: TextStyle(color: invoiceColor)),
                               Text("$total.00 ₹",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8))),
+                                  style: TextStyle(color: invoiceColor)),
                             ],
                           ),
                         ],
@@ -321,6 +389,6 @@ class _InvoiceState extends State<Invoice> {
   Future saveImage(Uint8List imageBytes) async {
     await [Permission.storage].request();
     await ImageGallerySaver.saveImage(imageBytes,
-        name: "${uname[0]} Invoice No. $invoiceNo.jpg");
+        name: "${uname[0]}_Invoice_No.$invoiceNo.jpg");
   }
 }
