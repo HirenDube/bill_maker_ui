@@ -56,7 +56,7 @@ class _ShowInvoicesState extends State<ShowInvoices> {
           .map((e) => GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ShowInvoices01( image: Image.file(e))));
+                    builder: (context) => ShowInvoices01( imageFile: e)));
                 print(imgPaths);
               },
               child: Container(

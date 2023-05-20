@@ -1,29 +1,27 @@
-import 'dart:io';
+// ignore_for_file: file_names
+
+import 'dart:io' show File;
+
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 
-class ShowInvoices01 extends StatefulWidget {
+class ShowInvoices01 extends StatelessWidget {
 
-  Widget image;
+  File imageFile;
 
-  ShowInvoices01({ required this.image});
-
-  @override
-  State<ShowInvoices01> createState() => _ShowInvoices01State();
-}
-
-class _ShowInvoices01State extends State<ShowInvoices01> {
-// /data/user/0/com.example.bill_maker_ui/cache/5dc63ee8-3b65-4d92-b07a-7c6aac829054/Divyang Invoice No. 9.jpg
+  ShowInvoices01({ required this.imageFile});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(
           title: "Invoice",
-          bgColor: Theme.of(context).primaryColor),
+          bgColor: Theme.of(context).primaryColor,actions: [IconButton(onPressed: (){
+            Share.shareFiles([imageFile.path]);
+      }, icon: Icon(Icons.share))]),
       body: Center(
-        child: widget.image,
+        child: Image.file(imageFile),
       ),
     );
   }
