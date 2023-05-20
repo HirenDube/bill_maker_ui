@@ -142,23 +142,6 @@ class _AddCustomerState extends State<AddCustomer> {
                 Divider(
                   color: Colors.transparent,
                 ),
-                // TextFormField(
-                //   onChanged: (value) {},
-                //   validator: (value) {},
-                //   keyboardType: TextInputType.number,
-                //   decoration: InputDecoration(
-                //       floatingLabelStyle: TextStyle(
-                //           fontWeight: FontWeight.bold, color: Colors.black),
-                //       labelText: "Customer's GST No. :",
-                //       hintText: "Enter Customer's GST No. here...",
-                //       fillColor: Colors.white,
-                //       filled: true,
-                //       enabledBorder: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(20))),
-                // ),
-                // Divider(
-                //   color: Colors.transparent,
-                // ),
                 ElevatedButton(
                     onPressed: () async {
                       if (_cusDataKey.currentState!.validate()) {
