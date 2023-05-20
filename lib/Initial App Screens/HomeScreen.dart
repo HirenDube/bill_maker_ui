@@ -1,5 +1,7 @@
 import 'package:bill_maker_ui/About%20Us/AboutUs.dart';
 import 'package:bill_maker_ui/Customers/Customers.dart';
+import 'package:bill_maker_ui/Initial%20App%20Screens/Register.dart';
+import 'package:bill_maker_ui/Intro/Introduction.dart';
 import 'package:bill_maker_ui/Invoices/MakeInvoice01.dart';
 import 'package:bill_maker_ui/Products/Products.dart';
 import 'package:bill_maker_ui/Invoices/ShowInvoices.dart';
@@ -22,6 +24,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(currentAccountPicture: FlutterLogo(),
+                decoration: BoxDecoration(
+                    color: Color(0xFF4300C1),
+                    borderRadius:
+                        BorderRadius.only(bottomRight: Radius.circular(10))),
+                accountName: Text(
+                  "Bill Maker UI",
+                  style: TextStyle(color: Colors.white,fontSize: 30,shadows: [Shadow(color: Colors.red,blurRadius:10)]),
+                ), accountEmail: null,),
+            ListTile(
+              tileColor: Colors.grey.shade200,title: Text("Registration"),
+              leading: Icon(Icons.app_registration),
+              onTap: ()=>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Registration())),
+            ),
+          ],
+        ),
+      ),
       appBar: buildAppBar(
           title: "Bill Maker Ui",
           bgColor: Theme.of(context).primaryColor,

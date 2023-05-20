@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bill_maker_ui/Customers/AddCustomer.dart';
+import 'package:bill_maker_ui/Customers/UpdateCustomer.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,24 +58,30 @@ class _CoustomersState extends State<Coustomers> {
                     print(displayedCusData);
                   },
                   icon: Icon(Icons.refresh)),
-              Visibility(visible: readyToDelete,
+              Visibility(
+                visible: readyToDelete,
                 child: IconButton(
                     onPressed: () {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
                                 title: Text(
-                                    "Are you sure you want to remove these customers ?"),actionsAlignment: MainAxisAlignment.spaceEvenly,
+                                    "Are you sure you want to remove these customers ?"),
+                                actionsAlignment: MainAxisAlignment.spaceEvenly,
                                 actions: [
                                   TextButton(
                                     onPressed: () async {
                                       for (int j = 0;
-                                          j < displayedCusData["cusName"].length;
+                                          j <
+                                              displayedCusData["cusName"]
+                                                  .length;
                                           j++) {
                                         if (selection[j]) {
-                                          displayedCusData["cusName"].removeAt(j);
+                                          displayedCusData["cusName"]
+                                              .removeAt(j);
                                           displayedCusData["cusAd"].removeAt(j);
-                                          displayedCusData["cusMNo"].removeAt(j);
+                                          displayedCusData["cusMNo"]
+                                              .removeAt(j);
                                         }
                                       }
                                       SharedPreferences clearData =
@@ -101,7 +108,6 @@ class _CoustomersState extends State<Coustomers> {
                                       ScaffoldMessenger.of(context)
                                         ..hideCurrentSnackBar()
                                         ..showSnackBar(snackBar);
-
                                     },
                                     child: Text(
                                       "YES",
@@ -136,16 +142,23 @@ class _CoustomersState extends State<Coustomers> {
                           readyToDelete = !readyToDelete;
                           selection = List.generate(
                               displayedCusData["cusName"].length,
-                                  (index) => false);
+                              (index) => false);
                         });
                       },
                       isThreeLine: true,
                       style: ListTileStyle.drawer,
                       onTap: () {
-                        if(readyToDelete){
-                         setState(() {
-                           selection[index] = !selection[index];
-                         });
+                        if (readyToDelete) {
+                          setState(() {
+                            selection[index] = !selection[index];
+                          });
+                        } else {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => UpdateCustomer(
+                                    cusAd: displayedCusData["cusAd"][index],
+                                    cusMNo: displayedCusData["cusMNo"][index],
+                                    cusName: displayedCusData["cusName"][index],
+                                  )));
                         }
                       },
                       shape: RoundedRectangleBorder(

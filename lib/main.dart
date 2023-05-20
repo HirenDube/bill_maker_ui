@@ -1,3 +1,6 @@
+import 'package:bill_maker_ui/Initial%20App%20Screens/HomeScreen.dart';
+import 'package:bill_maker_ui/Initial%20App%20Screens/Login.dart';
+import 'package:bill_maker_ui/Initial%20App%20Screens/Register.dart';
 import 'package:bill_maker_ui/Initial%20App%20Screens/SplashScreen.dart';
 import "package:flutter/material.dart";
 
@@ -13,6 +16,8 @@ class BillMakerApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+
+        drawerTheme: DrawerThemeData(backgroundColor: Colors.white,),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(MediaQuery.of(context).size.width - 50, 40),

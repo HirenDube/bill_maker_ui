@@ -83,19 +83,6 @@ class _ShowInvoicesState extends State<ShowInvoices> {
                     });
                   },
                   icon: Icon(Icons.refresh)),
-              IconButton(
-                  onPressed: () async {
-                    XFile? fiile = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
-                    File fiile2 = File(fiile!.path);
-                    setState(() {
-                      if (fiile2 != null) {
-                        images.add(Image.file(fiile2));
-                        print(fiile.path);
-                      }
-                    });
-                  },
-                  icon: Icon(Icons.image))
             ]),
         body: invoiceNo == 0
             ? Center(

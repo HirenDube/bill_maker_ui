@@ -6,7 +6,6 @@ import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class Products extends StatefulWidget {
   const Products({Key? key}) : super(key: key);
 
@@ -153,8 +152,13 @@ class _ProductsState extends State<Products> {
                   selection[index] = !selection[index];
                 });
               } else {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => UpdateProduct()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => UpdateProduct(
+                          name: displayedProductData["productName"][index],
+                          id: displayedProductData["productId"][index],
+                          price: displayedProductData["price"][index],
+                          stock: displayedProductData["stock"][index],
+                        )));
               }
             },
             shape:

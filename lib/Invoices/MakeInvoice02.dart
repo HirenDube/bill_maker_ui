@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bill_maker_ui/Invoices/Invoice.dart';
+import 'package:bill_maker_ui/Products/AddProduct.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,8 +20,8 @@ class MakeInvoice2 extends StatefulWidget {
 class _MakeInvoice2State extends State<MakeInvoice2> {
   Map displayProductData = {};
   Map invoice = {
-    "productName":[],
-    "price":<int>[],
+    "productName": [],
+    "price": <int>[],
   };
   List<bool> selection = <bool>[];
 
@@ -45,6 +46,12 @@ class _MakeInvoice2State extends State<MakeInvoice2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => AddProduct()));
+          },
+          child: Icon(Icons.add)),
       appBar: buildAppBar(
           title: "MakeInvoice : Select Products",
           bgColor: Theme.of(context).primaryColor,
@@ -68,7 +75,9 @@ class _MakeInvoice2State extends State<MakeInvoice2> {
           ),
           SliverFillRemaining(
               child: ListView.builder(
-                  itemCount: displayProductData["productName"].length != null ? displayProductData["productName"].length : 0,
+                  itemCount: displayProductData["productName"].length != null
+                      ? displayProductData["productName"].length
+                      : 0,
                   itemBuilder: (context, index) => Card(
                         child: CheckboxListTile(
                           title: Text(
@@ -97,23 +106,31 @@ class _MakeInvoice2State extends State<MakeInvoice2> {
                             TextButton.icon(
                               onPressed: () async {
                                 print("Invoice Generated");
-                                for(int x=0;x<displayProductData["productName"].length;x++){
-                                  if(selection[x]){
-                                    invoice["productName"].add(displayProductData["productName"][x]);
-                                    invoice["price"].add(displayProductData["price"][x]);
+                                for (int x = 0;
+                                    x <
+                                        displayProductData["productName"]
+                                            .length;
+                                    x++) {
+                                  if (selection[x]) {
+                                    invoice["productName"].add(
+                                        displayProductData["productName"][x]);
+                                    invoice["price"]
+                                        .add(displayProductData["price"][x]);
                                   }
                                 }
-                                SharedPreferences setData  = await SharedPreferences.getInstance();
+                                SharedPreferences setData =
+                                    await SharedPreferences.getInstance();
                                 String dataStringP = jsonEncode(invoice);
-                                String dataStringC = jsonEncode(widget.invoiceCusData);
+                                String dataStringC =
+                                    jsonEncode(widget.invoiceCusData);
 
                                 setData.setString("Invoice", dataStringP);
-                                setData.setString("InvoiceCusData", dataStringC);
+                                setData.setString(
+                                    "InvoiceCusData", dataStringC);
                                 print(dataStringP);
-                                setState(() {
-
-                                });
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Invoice()));
+                                setState(() {});
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Invoice()));
                               },
                               label: Text(
                                 "Make Invoice",
@@ -125,8 +142,9 @@ class _MakeInvoice2State extends State<MakeInvoice2> {
                               ),
                             ),
                             TextButton.icon(
-                              onPressed: () {print("Invoice Not Generated");
-                              Navigator.pop(context);
+                              onPressed: () {
+                                print("Invoice Not Generated");
+                                Navigator.pop(context);
                               },
                               label: Text(
                                 "Go Back",

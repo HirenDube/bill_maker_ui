@@ -168,29 +168,6 @@ class _AddProductState extends State<AddProduct> {
                           borderRadius: BorderRadius.circular(20))),
                 ),
                 Divider(color: Colors.transparent),
-                // Expanded(
-                //   child: DropdownButton(
-                //       underline: Container(
-                //           height: 1, color: Theme.of(context).primaryColor),
-                //       isExpanded: true,
-                //       alignment: Alignment.center,
-                //       icon: Icon(CupertinoIcons.down_arrow),
-                //       hint: Text("Choose GST"),
-                //       style: TextStyle(fontSize: 20, color: Colors.black),
-                //       borderRadius: BorderRadius.circular(20),
-                //       value: currentDDvalue,
-                //       items: [
-                //         DropdownMenuItem(value: "5", child: Text("5%")),
-                //         DropdownMenuItem(value: "12", child: Text("12%")),
-                //         DropdownMenuItem(value: "18", child: Text("18%")),
-                //         DropdownMenuItem(value: "28", child: Text("28%")),
-                //       ],
-                //       onChanged: (changed) {
-                //         setState(() {
-                //           currentDDvalue = changed!;
-                //         });
-                //       }),
-                // ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         minimumSize:

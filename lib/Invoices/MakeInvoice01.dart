@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bill_maker_ui/Customers/AddCustomer.dart';
 import 'package:bill_maker_ui/Invoices/MakeInvoice02.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,9 @@ class _MakeInvoice1State extends State<MakeInvoice1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddCustomer()));
+      },child: Icon(Icons.add)),
         appBar: buildAppBar(
             title: "MakeInvoice : Select Customer",
             bgColor: Theme.of(context).primaryColor,
