@@ -2,6 +2,8 @@ import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 
 class Introduction extends StatefulWidget {
+  const Introduction({super.key});
+
 
   @override
   State<Introduction> createState() => _IntroductionState();
@@ -22,10 +24,10 @@ class _IntroductionState extends State<Introduction> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ButtonBar(buttonPadding: EdgeInsets.all(10),children: [                TextButton(onPressed: (){}, child: Text("Skip"))
+                ButtonBar(buttonPadding: const EdgeInsets.all(10),children: [                TextButton(onPressed: (){}, child: const Text("Skip"))
                 ],),
                 SizedBox(width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height-300,
-                  child: TabBarView(children: [
+                  child: const TabBarView(children: [
                     Center(
                       child: Text(
                         "Page 1 ",

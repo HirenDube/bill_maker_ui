@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// ignore_for_file: file_names
 
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +23,11 @@ class _AboutUsState extends State<AboutUs> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ButtonBar(alignment: MainAxisAlignment.center, children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: Colors.white,
                   backgroundImage: AssetImage("assets/images/github.png"),
                 ),
-                Text("\nProject GitHub Link : "),
+                const Text("\nProject GitHub Link : "),
                 TextButton(
                     onPressed: () async {
                       Uri source = Uri.parse(
@@ -39,12 +39,12 @@ class _AboutUsState extends State<AboutUs> {
                       }
                     },
                     child:
-                        Text("https://github.com/HirenDube/bill_maker_ui.git"))
+                        const Text("https://github.com/HirenDube/bill_maker_ui.git"))
               ]),
               RichText(
                   text: TextSpan(
                       text: "Made by : ",
-                      style: TextStyle(color: Colors.black, fontSize: 25),
+                      style: const TextStyle(color: Colors.black, fontSize: 25),
                       children: [
                     TextSpan(
                         text: "Divyang Gajera",
@@ -53,7 +53,7 @@ class _AboutUsState extends State<AboutUs> {
                             color: Theme.of(context).primaryColor))
                   ])),
               RichText(
-                  text: TextSpan(
+                  text: const TextSpan(
                       text: "For use only by : ",
                       style: TextStyle(color: Colors.black, fontSize: 18),
                       children: [
@@ -67,7 +67,7 @@ class _AboutUsState extends State<AboutUs> {
                     CircleAvatar(
                       child: Image.asset("assets/images/mail.jpg"),
                     ),
-                    Text("E-mail : "),
+                    const Text("E-mail : "),
                     TextButton(
                         onPressed: () async {
                           Uri source = Uri.parse(
@@ -78,14 +78,14 @@ class _AboutUsState extends State<AboutUs> {
                             Fluttertoast.showToast(msg: "Can't launch G-mail");
                           }
                         },
-                        child: Text("extraac520@gmail.com"))
+                        child: const Text("extraac520@gmail.com"))
                   ]),
                   ButtonBar(alignment: MainAxisAlignment.center, children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage:
                           AssetImage("assets/images/instagram.jpg"),
                     ),
-                    Text("Instagram : "),
+                    const Text("Instagram : "),
                     TextButton(
                         onPressed: () async {
                           Uri source = Uri.parse(
@@ -96,14 +96,14 @@ class _AboutUsState extends State<AboutUs> {
                             Fluttertoast.showToast(msg: "Can't launch url");
                           }
                         },
-                        child: Text("@dg_tech_news_01"))
+                        child: const Text("@dg_tech_news_01"))
                   ]),
                   ButtonBar(alignment: MainAxisAlignment.center, children: [
                     CircleAvatar(
                       backgroundColor: Colors.white,
                       child: Image.asset("assets/images/WebApp.png"),
                     ),
-                    Text("Web App : "),
+                    const Text("Web App : "),
                     TextButton(
                         onPressed: () async {
                           Uri source =
@@ -114,7 +114,7 @@ class _AboutUsState extends State<AboutUs> {
                             Fluttertoast.showToast(msg: "Can't launch url");
                           }
                         },
-                        child: Text("https://bill-maker-ui.web.app/#/"))
+                        child: const Text("https://bill-maker-ui.web.app/#/"))
                   ]),
                 ],
               )
