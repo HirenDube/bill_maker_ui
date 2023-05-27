@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:bill_maker_ui/main.dart';
@@ -9,7 +11,7 @@ class UpdateCustomer extends StatefulWidget {
   int cusMNo;
 
   UpdateCustomer(
-      {required this.cusName, required this.cusAd, required this.cusMNo});
+      {super.key, required this.cusName, required this.cusAd, required this.cusMNo});
 
   @override
   State<UpdateCustomer> createState() => _UpdateCustomerState();
@@ -19,7 +21,7 @@ class _UpdateCustomerState extends State<UpdateCustomer> {
   String cusName = "", cusAd = "";
   int cusMNo = 0;
   Map cusData = {};
-  GlobalKey<FormState> _editCustomer = GlobalKey<FormState>();
+  final GlobalKey<FormState> _editCustomer = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -67,7 +69,7 @@ class _UpdateCustomerState extends State<UpdateCustomer> {
                       }
                     },
                     decoration: InputDecoration(
-                        floatingLabelStyle: TextStyle(
+                        floatingLabelStyle: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black),
                         labelText: "Customer Name:",
                         hintText: "Enter Customer's name here...",
@@ -76,11 +78,11 @@ class _UpdateCustomerState extends State<UpdateCustomer> {
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.transparent,
                   ),
                   TextFormField(
-                    initialValue: "${cusMNo}",
+                    initialValue: "$cusMNo",
                     onChanged: (value) {
                       cusMNo = int.parse(value);
                     },
@@ -105,10 +107,11 @@ class _UpdateCustomerState extends State<UpdateCustomer> {
                       } else {
                         return "Customer Mobile No. can't be empty !!";
                       }
+                      return "Enter specified value";
                     },
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                        floatingLabelStyle: TextStyle(
+                        floatingLabelStyle: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black),
                         labelText: "Mobile No.:",
                         hintText: "Enter Customer's Mobile NO. here...",
@@ -117,7 +120,7 @@ class _UpdateCustomerState extends State<UpdateCustomer> {
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.transparent,
                   ),
                   TextFormField(
@@ -129,7 +132,7 @@ class _UpdateCustomerState extends State<UpdateCustomer> {
                       return null;
                     },
                     decoration: InputDecoration(
-                        floatingLabelStyle: TextStyle(
+                        floatingLabelStyle: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black),
                         labelText: "Address:",
                         hintText: "Enter Customer's Address here...",
@@ -138,7 +141,7 @@ class _UpdateCustomerState extends State<UpdateCustomer> {
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.transparent,
                   ),
                   ElevatedButton(
@@ -157,7 +160,7 @@ class _UpdateCustomerState extends State<UpdateCustomer> {
                           Navigator.pop(context);
 
                           SnackBar snkBar = SnackBar(
-                            content: Text("Customer Updated successfully"),
+                            content: const Text("Customer Updated successfully"),
                             behavior: SnackBarBehavior.floating,
                             showCloseIcon: true,
                             elevation: 5,
@@ -173,7 +176,7 @@ class _UpdateCustomerState extends State<UpdateCustomer> {
                           backgroundColor: Theme.of(context).primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15))),
-                      child: Text(
+                      child: const Text(
                         " Add ",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),

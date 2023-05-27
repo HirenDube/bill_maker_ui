@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bill_maker_ui/Initial%20App%20Screens/Login.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +15,8 @@ class Registration extends StatefulWidget {
 class _RegistrationState extends State<Registration> {
   String abc = 'initial commit pusshed';
 
-  GlobalKey<FormFieldState> _userKey = GlobalKey<FormFieldState>();
-  GlobalKey<FormFieldState> _passKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _userKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _passKey = GlobalKey<FormFieldState>();
 
   String? username, password;
   List<String> uname = [];
@@ -33,8 +35,8 @@ class _RegistrationState extends State<Registration> {
     final uls = getData.getStringList("Users");
     final pls = getData.getStringList("Passes");
 
-    uname = uls! ?? uname;
-    pname = pls! ?? pname;
+    uname = uls!;
+    pname = pls!;
     // print(pname);
     // print(uname);
   }
@@ -54,7 +56,7 @@ class _RegistrationState extends State<Registration> {
                 colorFilter: ColorFilter.mode(
                     Colors.white.withOpacity(0.2), BlendMode.dstATop),
                 fit: BoxFit.fill,
-                image: AssetImage("assets/images/bill_ui_bg(1).jpg"))),
+                image: const AssetImage("assets/images/bill_ui_bg(1).jpg"))),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -73,7 +75,7 @@ class _RegistrationState extends State<Registration> {
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
                     labelText: "Username : ",
-                    floatingLabelStyle: TextStyle(
+                    floatingLabelStyle: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black),
                     fillColor: Colors.white,
                     filled: true),
@@ -89,7 +91,7 @@ class _RegistrationState extends State<Registration> {
                   }
                 },
               ),
-              Divider(
+              const Divider(
                 color: Colors.transparent,
               ),
               TextFormField(
@@ -98,7 +100,7 @@ class _RegistrationState extends State<Registration> {
                 },
                 key: _passKey,
                 decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
+                    floatingLabelStyle: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -121,7 +123,7 @@ class _RegistrationState extends State<Registration> {
                   }
                 },
               ),
-              Divider(
+              const Divider(
                 color: Colors.transparent,
               ),
               ElevatedButton(
@@ -141,11 +143,11 @@ class _RegistrationState extends State<Registration> {
                         dataEntry.setStringList("Passes", pname);
                       });
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Login()));
+                          MaterialPageRoute(builder: (context) => const Login()));
                       dataEntry.setBool("Registered", true);
                     }
                   },
-                  child: Text(" REGISTER "))
+                  child: const Text(" REGISTER "))
             ],
           ),
         ),

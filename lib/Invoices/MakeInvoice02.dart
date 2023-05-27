@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -11,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class MakeInvoice2 extends StatefulWidget {
   Map invoiceCusData = {};
 
-  MakeInvoice2({required this.invoiceCusData});
+  MakeInvoice2({super.key, required this.invoiceCusData});
 
   @override
   State<MakeInvoice2> createState() => _MakeInvoice2State();
@@ -49,9 +51,9 @@ class _MakeInvoice2State extends State<MakeInvoice2> {
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => AddProduct()));
+                .push(MaterialPageRoute(builder: (context) => const AddProduct()));
           },
-          child: Icon(Icons.add)),
+          child: const Icon(Icons.add)),
       appBar: buildAppBar(
           title: "MakeInvoice : Select Products",
           bgColor: Theme.of(context).primaryColor,
@@ -62,22 +64,20 @@ class _MakeInvoice2State extends State<MakeInvoice2> {
                     getData();
                   });
                 },
-                icon: Icon(Icons.refresh))
+                icon: const Icon(Icons.refresh))
           ]),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             backgroundColor: Colors.deepOrangeAccent,
-            leading: Spacer(),
+            leading: const Spacer(),
             title: Text(Platform.isWindows
                 ? "Customer Name : ${widget.invoiceCusData["cusName"]}"
                 : "${widget.invoiceCusData["cusName"]}"),
           ),
           SliverFillRemaining(
               child: ListView.builder(
-                  itemCount: displayProductData["productName"].length != null
-                      ? displayProductData["productName"].length
-                      : 0,
+                  itemCount: displayProductData["productName"].length ?? 0,
                   itemBuilder: (context, index) => Card(
                         child: CheckboxListTile(
                           title: Text(
@@ -101,11 +101,10 @@ class _MakeInvoice2State extends State<MakeInvoice2> {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                          title: Text("Two Step Verification ..."),
+                          title: const Text("Two Step Verification ..."),
                           actions: [
                             TextButton.icon(
                               onPressed: () async {
-                                print("Invoice Generated");
                                 for (int x = 0;
                                     x <
                                         displayProductData["productName"]
@@ -127,30 +126,29 @@ class _MakeInvoice2State extends State<MakeInvoice2> {
                                 setData.setString("Invoice", dataStringP);
                                 setData.setString(
                                     "InvoiceCusData", dataStringC);
-                                print(dataStringP);
                                 setState(() {});
+                                Navigator.pop(context);
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => Invoice()));
+                                    builder: (context) => const Invoice()));
                               },
-                              label: Text(
+                              label: const Text(
                                 "Make Invoice",
                                 style: TextStyle(color: Colors.green),
                               ),
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.receipt,
                                 color: Colors.green,
                               ),
                             ),
                             TextButton.icon(
                               onPressed: () {
-                                print("Invoice Not Generated");
                                 Navigator.pop(context);
                               },
-                              label: Text(
+                              label: const Text(
                                 "Go Back",
                                 style: TextStyle(color: Colors.red),
                               ),
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.close,
                                 color: Colors.red,
                               ),
@@ -163,7 +161,7 @@ class _MakeInvoice2State extends State<MakeInvoice2> {
                         "Please at least select one product to make an invoice");
               }
             },
-            child: Text("Make Invoice")),
+            child: const Text("Make Invoice")),
       ),
     );
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:bill_maker_ui/main.dart';
@@ -12,7 +14,7 @@ class UpdateProduct extends StatefulWidget {
   State<UpdateProduct> createState() => _UpdateProductState();
 
   UpdateProduct(
-      {required this.name,
+      {super.key, required this.name,
       required this.id,
       required this.price,
       required this.stock});
@@ -22,7 +24,7 @@ class _UpdateProductState extends State<UpdateProduct> {
   String name = "";
   int id = 0, price = 0, stock = 0;
   Map productData = {};
-  GlobalKey<FormState> _editProduct = GlobalKey<FormState>();
+  final GlobalKey<FormState> _editProduct = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -75,18 +77,18 @@ class _UpdateProductState extends State<UpdateProduct> {
                     },
                     decoration: InputDecoration(
                         labelText: "Product Name : ",
-                        floatingLabelStyle: TextStyle(
+                        floatingLabelStyle: const TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                         filled: true,
                         fillColor: Colors.white,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
                   ),
-                  Divider(color: Colors.transparent),
+                  const Divider(color: Colors.transparent),
                   TextFormField(
-                    initialValue: "${id}",
+                    initialValue: "$id",
                     validator: (id1) {
-                      if (!id1!.isEmpty) {
+                      if (id1!.isNotEmpty) {
                         if (int.tryParse(id1) != null) {
                           if (!((productData["productId"])
                               .contains(int.parse(id1)))) {
@@ -108,16 +110,16 @@ class _UpdateProductState extends State<UpdateProduct> {
                     decoration: InputDecoration(
                         hintText: "Enter a number only",
                         labelText: "Product ID : ",
-                        floatingLabelStyle: TextStyle(
+                        floatingLabelStyle: const TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                         filled: true,
                         fillColor: Colors.white,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
                   ),
-                  Divider(color: Colors.transparent),
+                  const Divider(color: Colors.transparent),
                   TextFormField(
-                    initialValue: "${price}",
+                    initialValue: "$price",
                     validator: (price1) {
                       if (price1!.isNotEmpty) {
                         if (int.tryParse(price1) != null) {
@@ -136,16 +138,16 @@ class _UpdateProductState extends State<UpdateProduct> {
                     decoration: InputDecoration(
                         hintText: "Enter a number only",
                         labelText: "Price : ",
-                        floatingLabelStyle: TextStyle(
+                        floatingLabelStyle: const TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                         filled: true,
                         fillColor: Colors.white,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
                   ),
-                  Divider(color: Colors.transparent),
+                  const Divider(color: Colors.transparent),
                   TextFormField(
-                    initialValue: "${stock}",
+                    initialValue: "$stock",
                     validator: (stock1) {
                       if (stock1!.isNotEmpty) {
                         if (int.tryParse(stock1) != null) {
@@ -164,14 +166,14 @@ class _UpdateProductState extends State<UpdateProduct> {
                     decoration: InputDecoration(
                         hintText: "Enter a number only",
                         labelText: "Stock : ",
-                        floatingLabelStyle: TextStyle(
+                        floatingLabelStyle: const TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                         filled: true,
                         fillColor: Colors.white,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20))),
                   ),
-                  Divider(color: Colors.transparent),
+                  const Divider(color: Colors.transparent),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           minimumSize:
@@ -194,7 +196,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                           Navigator.pop(context);
 
                           SnackBar snackBar = SnackBar(
-                            content: Text("Product Updated Successfully"),
+                            content: const Text("Product Updated Successfully"),
                             behavior: SnackBarBehavior.floating,
                             showCloseIcon: true,
                             elevation: 5,
@@ -207,7 +209,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                           setState(() {});
                         }
                       },
-                      child: Text(
+                      child: const Text(
                         " Add ",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ))

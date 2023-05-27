@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:bill_maker_ui/Products/AddProduct.dart';
@@ -49,22 +51,22 @@ class _ProductsState extends State<Products> {
           actions: [
             IconButton(
                 onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AddProduct())),
-                icon: Icon(Icons.add_circle_outline)),
+                    MaterialPageRoute(builder: (context) => const AddProduct())),
+                icon: const Icon(Icons.add_circle_outline)),
             IconButton(
                 onPressed: () {
                   setState(() {
                     getDataBase();
                   });
                 },
-                icon: Icon(Icons.refresh)),
+                icon: const Icon(Icons.refresh)),
             Visibility(
               visible: readyToDelete,
               child: IconButton(
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                            title: Text(
+                            title: const Text(
                                 "Are you sure you want to delete these products ?"),
                             actionsAlignment: MainAxisAlignment.spaceEvenly,
                             actions: [
@@ -103,7 +105,7 @@ class _ProductsState extends State<Products> {
                                     Navigator.pop(context);
 
                                     SnackBar snkbar = SnackBar(
-                                      content: Text(
+                                      content: const Text(
                                           "Products removed successfully ..."),
                                       behavior: SnackBarBehavior.floating,
                                       dismissDirection:
@@ -116,19 +118,19 @@ class _ProductsState extends State<Products> {
                                       ..hideCurrentSnackBar()
                                       ..showSnackBar(snkbar);
                                   },
-                                  child: Text("YES",
+                                  child: const Text("YES",
                                       style: TextStyle(color: Colors.red))),
                               TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "NO",
                                     style: TextStyle(color: Colors.green),
                                   )),
                             ],
                           )),
-                  icon: Icon(Icons.done_all)),
+                  icon: const Icon(Icons.done_all)),
             )
           ]),
       body: ListView.builder(
@@ -176,7 +178,7 @@ class _ProductsState extends State<Products> {
                         selection[index] = ckecked!;
                       });
                     })
-                : Icon(Icons.shopping_cart),
+                : const Icon(Icons.shopping_cart),
           ),
         ),
       ),

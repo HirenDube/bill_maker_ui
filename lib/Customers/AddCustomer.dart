@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:bill_maker_ui/main.dart';
@@ -25,7 +27,7 @@ class _AddCustomerState extends State<AddCustomer> {
 
   // "cusGSTNo": [],
 
-  GlobalKey<FormState> _cusDataKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _cusDataKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -70,7 +72,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     }
                   },
                   decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
+                      floatingLabelStyle: const TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.black),
                       labelText: "Customer Name:",
                       hintText: "Enter Customer's name here...",
@@ -79,7 +81,7 @@ class _AddCustomerState extends State<AddCustomer> {
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                Divider(
+                const Divider(
                   color: Colors.transparent,
                 ),
                 TextFormField(
@@ -107,10 +109,11 @@ class _AddCustomerState extends State<AddCustomer> {
                     } else {
                       return "Customer Mobile No. can't be empty !!";
                     }
+                    return "Enter specified value";
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
+                      floatingLabelStyle: const TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.black),
                       labelText: "Mobile No.:",
                       hintText: "Enter Customer's Mobile NO. here...",
@@ -119,7 +122,7 @@ class _AddCustomerState extends State<AddCustomer> {
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                Divider(
+                const Divider(
                   color: Colors.transparent,
                 ),
                 TextFormField(
@@ -130,7 +133,7 @@ class _AddCustomerState extends State<AddCustomer> {
                     return null;
                   },
                   decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
+                      floatingLabelStyle: const TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.black),
                       labelText: "Address:",
                       hintText: "Enter Customer's Address here...",
@@ -139,7 +142,7 @@ class _AddCustomerState extends State<AddCustomer> {
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                Divider(
+                const Divider(
                   color: Colors.transparent,
                 ),
                 ElevatedButton(
@@ -159,7 +162,7 @@ class _AddCustomerState extends State<AddCustomer> {
                           addData.setString("Customers", dataString);
 
                           SnackBar snkBar = SnackBar(
-                            content: Text("Customer(Party) added successfully"),
+                            content: const Text("Customer(Party) added successfully"),
                             behavior: SnackBarBehavior.floating,
                             showCloseIcon: true,
                             elevation: 5,
@@ -171,7 +174,7 @@ class _AddCustomerState extends State<AddCustomer> {
                             ..showSnackBar(snkBar);
                         } else {
                           SnackBar snkBar = SnackBar(
-                            content: Text(
+                            content: const Text(
                                 "One Customer(Party) cannot be added twice !!"),
                             behavior: SnackBarBehavior.floating,
                             showCloseIcon: true,
@@ -189,7 +192,7 @@ class _AddCustomerState extends State<AddCustomer> {
                         backgroundColor: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15))),
-                    child: Text(
+                    child: const Text(
                       " Add ",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),

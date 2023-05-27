@@ -26,7 +26,7 @@ class _MakeInvoice1State extends State<MakeInvoice1> {
   void getData() async {
     SharedPreferences getData = await SharedPreferences.getInstance();
     if (getData.getString("Customers") != null) {
-      String dataString = await getData.getString("Customers")!;
+      String dataString = getData.getString("Customers")!;
       prevData = await jsonDecode(dataString);
       setState(() {});
     }
@@ -36,8 +36,8 @@ class _MakeInvoice1State extends State<MakeInvoice1> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddCustomer()));
-      },child: Icon(Icons.add)),
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AddCustomer()));
+      },child: const Icon(Icons.add)),
         appBar: buildAppBar(
             title: "MakeInvoice : Select Customer",
             bgColor: Theme.of(context).primaryColor,
@@ -48,7 +48,7 @@ class _MakeInvoice1State extends State<MakeInvoice1> {
                       getData();
                     });
                   },
-                  icon: Icon(Icons.refresh))
+                  icon: const Icon(Icons.refresh))
             ]),
         body: ListView.builder(
             itemCount: prevData["cusName"].length,

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:bill_maker_ui/Initial%20App%20Screens/HomeScreen.dart';
 import 'package:bill_maker_ui/Initial%20App%20Screens/Login.dart';
 import 'package:bill_maker_ui/Initial%20App%20Screens/Register.dart';
@@ -20,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     // TODO: implement initState
     lottieController =
-        AnimationController(duration: Duration(seconds: 1), vsync: this)
+        AnimationController(duration: const Duration(seconds: 1), vsync: this)
           ..repeat(reverse: true);
     registartionVerfy();
 
@@ -33,38 +35,38 @@ class _SplashScreenState extends State<SplashScreen>
       if (navigate.getBool("Registered")!) {
         if (navigate.getBool("LoggedIn") != null) {
           if (navigate.getBool("LoggedIn")!) {
-            Future.delayed(Duration(seconds: 3), () {
+            Future.delayed(const Duration(seconds: 3), () {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
+                  MaterialPageRoute(builder: (context) => const HomeScreen()));
               lottieController.dispose();
             });
           } else {
-            Future.delayed(Duration(seconds: 3), () {
+            Future.delayed(const Duration(seconds: 3), () {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => Login()));
+                  MaterialPageRoute(builder: (context) => const Login()));
               lottieController.dispose();
             });
           }
         } else {
           navigate.setBool("LoggedIn", false);
-          Future.delayed(Duration(seconds: 3), () {
+          Future.delayed(const Duration(seconds: 3), () {
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => Login()));
+                MaterialPageRoute(builder: (context) => const Login()));
             lottieController.dispose();
           });
         }
       } else {
-        Future.delayed(Duration(seconds: 3), () {
+        Future.delayed(const Duration(seconds: 3), () {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Registration()));
+              MaterialPageRoute(builder: (context) => const Registration()));
           lottieController.dispose();
         });
       }
     } else {
       navigate.setBool("Registered", false);
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(const Duration(seconds: 3), () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => Registration()));
+            MaterialPageRoute(builder: (context) => const Registration()));
         lottieController.dispose();
       });
     }

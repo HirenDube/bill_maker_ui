@@ -1,7 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:bill_maker_ui/main.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +19,7 @@ class _AddProductState extends State<AddProduct> {
   int price = 0;
   int stock = 0;
   int id = 0;
-  GlobalKey<FormState> _addProduct = GlobalKey<FormState>();
+  final GlobalKey<FormState> _addProduct = GlobalKey<FormState>();
   Map productData = {
     "productName": <String>[],
     "productId": <int>[],
@@ -75,17 +76,17 @@ class _AddProductState extends State<AddProduct> {
                   },
                   decoration: InputDecoration(
                       labelText: "Product Name : ",
-                      floatingLabelStyle: TextStyle(
+                      floatingLabelStyle: const TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                       filled: true,
                       fillColor: Colors.white,
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                Divider(color: Colors.transparent),
+                const Divider(color: Colors.transparent),
                 TextFormField(
                   validator: (id1) {
-                    if (!id1!.isEmpty) {
+                    if (id1!.isNotEmpty) {
                       if (int.tryParse(id1) != null) {
                         if (!((productData["productId"]).contains(int.parse(id1)))) {
                           return null;
@@ -106,14 +107,14 @@ class _AddProductState extends State<AddProduct> {
                   decoration: InputDecoration(
                       hintText: "Enter a number only",
                       labelText: "Product ID : ",
-                      floatingLabelStyle: TextStyle(
+                      floatingLabelStyle: const TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                       filled: true,
                       fillColor: Colors.white,
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                Divider(color: Colors.transparent),
+                const Divider(color: Colors.transparent),
                 TextFormField(
                   validator: (price1) {
                     if (price1!.isNotEmpty) {
@@ -133,14 +134,14 @@ class _AddProductState extends State<AddProduct> {
                   decoration: InputDecoration(
                       hintText: "Enter a number only",
                       labelText: "Price : ",
-                      floatingLabelStyle: TextStyle(
+                      floatingLabelStyle: const TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                       filled: true,
                       fillColor: Colors.white,
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                Divider(color: Colors.transparent),
+                const Divider(color: Colors.transparent),
                 TextFormField(
                   validator: (stock1) {
                     if (stock1!.isNotEmpty) {
@@ -160,14 +161,14 @@ class _AddProductState extends State<AddProduct> {
                   decoration: InputDecoration(
                       hintText: "Enter a number only",
                       labelText: "Stock : ",
-                      floatingLabelStyle: TextStyle(
+                      floatingLabelStyle: const TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                       filled: true,
                       fillColor: Colors.white,
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                Divider(color: Colors.transparent),
+                const Divider(color: Colors.transparent),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         minimumSize:
@@ -191,7 +192,7 @@ class _AddProductState extends State<AddProduct> {
                           addData.setString("Products", value);
 
                           SnackBar snackBar = SnackBar(
-                            content: Text("Product Added Successfully"),
+                            content: const Text("Product Added Successfully"),
                             behavior: SnackBarBehavior.floating,
                             showCloseIcon: true,
                             elevation: 5,
@@ -204,7 +205,7 @@ class _AddProductState extends State<AddProduct> {
                           setState(() {});
                         } else {
                           SnackBar snackBar = SnackBar(
-                            content: Text("One product can't be added twice"),
+                            content: const Text("One product can't be added twice"),
                             behavior: SnackBarBehavior.floating,
                             showCloseIcon: true,
                             elevation: 5,
@@ -217,7 +218,7 @@ class _AddProductState extends State<AddProduct> {
                         }
                       }
                     },
-                    child: Text(
+                    child: const Text(
                       " Add ",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ))

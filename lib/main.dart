@@ -1,11 +1,8 @@
-import 'package:bill_maker_ui/Initial%20App%20Screens/HomeScreen.dart';
-import 'package:bill_maker_ui/Initial%20App%20Screens/Login.dart';
-import 'package:bill_maker_ui/Initial%20App%20Screens/Register.dart';
 import 'package:bill_maker_ui/Initial%20App%20Screens/SplashScreen.dart';
 import "package:flutter/material.dart";
 
 void main() {
-  runApp(BillMakerApp());
+  runApp(const BillMakerApp());
 }
 
 class BillMakerApp extends StatelessWidget {
@@ -17,15 +14,15 @@ class BillMakerApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
 
-        drawerTheme: DrawerThemeData(backgroundColor: Colors.white,),
+        drawerTheme: const DrawerThemeData(backgroundColor: Colors.white,),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(MediaQuery.of(context).size.width - 50, 40),
                   backgroundColor: Theme.of(context).primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)))),
-          primaryColor: Color(0xFF4300C1)),
-      home: SplashScreen(),
+          primaryColor: const Color(0xFF4300C1)),
+      home: const SplashScreen(),
     );
   }
 }
@@ -33,7 +30,7 @@ class BillMakerApp extends StatelessWidget {
 AppBar buildAppBar(
     {required String title,
     Color bgColor = Colors.blue,
-    leading = null,
+    leading,
     actions}) {
   return AppBar(
     title: Text(title),

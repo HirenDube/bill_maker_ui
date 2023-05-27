@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:bill_maker_ui/Customers/AddCustomer.dart';
@@ -48,16 +50,15 @@ class _CoustomersState extends State<Coustomers> {
             actions: [
               IconButton(
                   onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AddCustomer())),
-                  icon: Icon(Icons.add_circle_outline)),
+                      MaterialPageRoute(builder: (context) => const AddCustomer())),
+                  icon: const Icon(Icons.add_circle_outline)),
               IconButton(
                   onPressed: () {
                     setState(() {
                       getCusData();
                     });
-                    print(displayedCusData);
                   },
-                  icon: Icon(Icons.refresh)),
+                  icon: const Icon(Icons.refresh)),
               Visibility(
                 visible: readyToDelete,
                 child: IconButton(
@@ -65,7 +66,7 @@ class _CoustomersState extends State<Coustomers> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                title: Text(
+                                title: const Text(
                                     "Are you sure you want to remove these customers ?"),
                                 actionsAlignment: MainAxisAlignment.spaceEvenly,
                                 actions: [
@@ -96,7 +97,7 @@ class _CoustomersState extends State<Coustomers> {
                                           (index) => false);
                                       Navigator.pop(context);
                                       SnackBar snackBar = SnackBar(
-                                        content: Text(
+                                        content: const Text(
                                             "Customers removed successfully ..."),
                                         behavior: SnackBarBehavior.floating,
                                         dismissDirection:
@@ -109,7 +110,7 @@ class _CoustomersState extends State<Coustomers> {
                                         ..hideCurrentSnackBar()
                                         ..showSnackBar(snackBar);
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "YES",
                                       style: TextStyle(color: Colors.red),
                                     ),
@@ -118,7 +119,7 @@ class _CoustomersState extends State<Coustomers> {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "NO",
                                       style: TextStyle(color: Colors.green),
                                     ),
@@ -126,7 +127,7 @@ class _CoustomersState extends State<Coustomers> {
                                 ],
                               )); // showDialogue
                     },
-                    icon: Icon(Icons.done_all)),
+                    icon: const Icon(Icons.done_all)),
               )
             ]),
         body: ListView.builder(
@@ -168,7 +169,7 @@ class _CoustomersState extends State<Coustomers> {
                       //        "Name          : ${displayedCusData["cusName"][index]}"),
                       subtitle: Text(
                         "---------------------------------------------------------------------\n${displayedCusData["cusMNo"][index]}\n"
-                        "${(displayedCusData["cusAd"][index]) != null ? (displayedCusData["cusAd"][index]) : "No Address"}",
+                        "${(displayedCusData["cusAd"][index]) ?? "No Address"}",
                         selectionColor: Colors.blue,
                         softWrap: true,
                         textAlign: TextAlign.left,
@@ -181,7 +182,7 @@ class _CoustomersState extends State<Coustomers> {
                                   selection[index] = checked!;
                                 });
                               })
-                          : Icon(Icons.account_circle_outlined),
+                          : const Icon(Icons.account_circle_outlined),
                     ),
                   ),
                 )));

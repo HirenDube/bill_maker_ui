@@ -48,7 +48,7 @@ class _ShowInvoicesState extends State<ShowInvoices> {
       images.clear();
       for (int i = 1; i <= invoiceNo; i++) {
         imgPaths.add(
-            "/storage/emulated/0/Pictures/${uname[0]}_Invoice_No.${i}.jpg");
+            "/storage/emulated/0/Pictures/${uname[0]}_Invoice_No.$i.jpg");
         inNOs.add(i-1);
       }
       List<File> imageFiles = imgPaths.map((e) => File(e)).toList();
@@ -57,7 +57,6 @@ class _ShowInvoicesState extends State<ShowInvoices> {
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ShowInvoices01( imageFile: e)));
-                print(imgPaths);
               },
               child: Container(
 
@@ -78,14 +77,14 @@ class _ShowInvoicesState extends State<ShowInvoices> {
               IconButton(
                   onPressed: () {
                     setState(() {
-                      getInvoiceData();                print(imgPaths);
+                      getInvoiceData();
 
                     });
                   },
-                  icon: Icon(Icons.refresh)),
+                  icon: const Icon(Icons.refresh)),
             ]),
         body: invoiceNo == 0
-            ? Center(
+            ? const Center(
                 child: Text(
                   "No Invoice is saved currently !!",
                   style: TextStyle(fontSize: 25),
@@ -102,7 +101,6 @@ class _ShowInvoicesState extends State<ShowInvoices> {
     if (tempImgFile != null) {
       setState(() {
         img = File(tempImgFile.path);
-        print(tempImgFile.path);
       });
     }
   }

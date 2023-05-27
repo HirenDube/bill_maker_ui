@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,8 +15,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   String abc = 'initial commit pusshed';
 
-  GlobalKey<FormFieldState> _userKey = GlobalKey<FormFieldState>();
-  GlobalKey<FormFieldState> _passKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _userKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _passKey = GlobalKey<FormFieldState>();
 
   String? username, password;
   List<String> uname = [];
@@ -32,8 +34,8 @@ class _LoginState extends State<Login> {
     final getData = await SharedPreferences.getInstance();
     final uls = getData.getStringList("Users");
     final pls = getData.getStringList("Passes");
-    uname = uls! ?? uname;
-    pname = pls! ?? pname;
+    uname = uls! ;
+    pname = pls!;
   }
 
   @override
@@ -50,7 +52,7 @@ class _LoginState extends State<Login> {
                 colorFilter: ColorFilter.mode(
                     Colors.white.withOpacity(0.2), BlendMode.dstATop),
                 fit: BoxFit.fill,
-                image: AssetImage("assets/images/bill_ui_bg(1).jpg"))),
+                image: const AssetImage("assets/images/bill_ui_bg(1).jpg"))),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -69,7 +71,7 @@ class _LoginState extends State<Login> {
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
                     labelText: "Username : ",
-                    floatingLabelStyle: TextStyle(
+                    floatingLabelStyle: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black),
                     fillColor: Colors.white,
                     filled: true),
@@ -86,7 +88,7 @@ class _LoginState extends State<Login> {
                   }
                 },
               ),
-              Divider(
+              const Divider(
                 color: Colors.transparent,
               ),
               TextFormField(
@@ -95,7 +97,7 @@ class _LoginState extends State<Login> {
                 },
                 key: _passKey,
                 decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
+                    floatingLabelStyle: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -122,7 +124,7 @@ class _LoginState extends State<Login> {
                   }
                 },
               ),
-              Divider(
+              const Divider(
                 color: Colors.transparent,
               ),
               ElevatedButton(
@@ -131,7 +133,7 @@ class _LoginState extends State<Login> {
                         _passKey.currentState!.validate()) {
                       SharedPreferences setData = await SharedPreferences.getInstance();
                       setData.setBool("LoggedIn", true);
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HomeScreen()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const HomeScreen()));
                     }
                   },
                   style: ElevatedButton.styleFrom( minimumSize:
@@ -139,7 +141,7 @@ class _LoginState extends State<Login> {
                     backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),
-                  child: Text(" LOGIN "))
+                  child: const Text(" LOGIN "))
             ],
           ),
         ),

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, must_be_immutable, deprecated_member_use
 
 import 'dart:io' show File;
 
@@ -10,7 +10,7 @@ class ShowInvoices01 extends StatelessWidget {
 
   File imageFile;
 
-  ShowInvoices01({ required this.imageFile});
+  ShowInvoices01({super.key,  required this.imageFile});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ShowInvoices01 extends StatelessWidget {
           title: "Invoice",
           bgColor: Theme.of(context).primaryColor,actions: [IconButton(onPressed: (){
             Share.shareFiles([imageFile.path]);
-      }, icon: Icon(Icons.share))]),
+      }, icon: const Icon(Icons.share))]),
       body: Center(
         child: Image.file(imageFile),
       ),

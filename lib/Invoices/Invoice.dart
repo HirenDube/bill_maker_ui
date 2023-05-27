@@ -34,8 +34,7 @@ class _InvoiceState extends State<Invoice> {
     // TODO: implement initState
     getDATA();
     productNames = dataP["productName"];
-    print(productNames);
-    invoiceColor = Color(0xFF4300C1).withOpacity(0.8);
+    invoiceColor = const Color(0xFF4300C1).withOpacity(0.8);
     super.initState();
   }
 
@@ -61,7 +60,6 @@ class _InvoiceState extends State<Invoice> {
           total += l;
         }
       }
-      print("$uname\n\n$pname\n\n$dataP\n\n$dataC");
     }
   }
 
@@ -87,7 +85,7 @@ class _InvoiceState extends State<Invoice> {
                                 });
                                 Navigator.pop(context);
                               },
-                              child: CircleAvatar(
+                              child: const CircleAvatar(
                                 backgroundColor: Colors.red,
                               ),
                             ),GestureDetector(
@@ -97,7 +95,7 @@ class _InvoiceState extends State<Invoice> {
                                 });
                                 Navigator.pop(context);
                               },
-                              child: CircleAvatar(
+                              child: const CircleAvatar(
                                 backgroundColor: Colors.teal,
                               ),
                             ),
@@ -108,7 +106,7 @@ class _InvoiceState extends State<Invoice> {
                                   Navigator.pop(context);
                                 });
                               },
-                              child: CircleAvatar(
+                              child: const CircleAvatar(
                                 backgroundColor: Colors.blue,
                               ),
                             ),
@@ -119,7 +117,7 @@ class _InvoiceState extends State<Invoice> {
                                   Navigator.pop(context);
                                 });
                               },
-                              child: CircleAvatar(
+                              child: const CircleAvatar(
                                 backgroundColor: Colors.black,
                               ),
                             ),
@@ -130,7 +128,7 @@ class _InvoiceState extends State<Invoice> {
                                   Navigator.pop(context);
                                 });
                               },
-                              child: CircleAvatar(
+                              child: const CircleAvatar(
                                 backgroundColor: Colors.deepOrangeAccent,
                               ),
                             ),
@@ -138,13 +136,13 @@ class _InvoiceState extends State<Invoice> {
                               onTap: () {
                                 setState(() {
                                   invoiceColor =
-                                      Color(0xFF4300C1).withOpacity(0.8);
+                                      const Color(0xFF4300C1).withOpacity(0.8);
                                   Navigator.pop(context);
                                 });
                               },
                               child: CircleAvatar(
                                 backgroundColor:
-                                    Color(0xFF4300C1).withOpacity(0.8),
+                                    const Color(0xFF4300C1).withOpacity(0.8),
                               ),
                             ),
                           ],
@@ -165,7 +163,7 @@ class _InvoiceState extends State<Invoice> {
                     getDATA();
                   });
                 },
-                icon: Icon(Icons.refresh)),
+                icon: const Icon(Icons.refresh)),
             IconButton(
                 onPressed: () async {
                   SharedPreferences invoicceNo =
@@ -181,18 +179,10 @@ class _InvoiceState extends State<Invoice> {
                     }
                   });
 
-                  // ScaffoldMessenger.of(context)
-                  //   ..hideCurrentSnackBar()
-                  //   ..showSnackBar(SnackBar(
-                  //     content: Text("Invoice successfully saved to gallery"),
-                  //     behavior: SnackBarBehavior.floating,
-                  //     dismissDirection: DismissDirection.horizontal,
-                  //     showCloseIcon: true,
-                  //   ));
                   Fluttertoast.showToast(
                       msg: "Invoice successfully saved to gallery");
                 },
-                icon: Icon(Icons.save)),
+                icon: const Icon(Icons.save)),
           ]),
       body: Screenshot(
         controller: ssController,
@@ -225,159 +215,153 @@ class _InvoiceState extends State<Invoice> {
                       ),
                     ],
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Container(
-                child: Column(
-                  children: [
-                    Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RichText(
+                                text: TextSpan(
+                                    text: "Date of Issue.  \n",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(color: Colors.grey),
+                                    children: [
+                                  TextSpan(
+                                      text:
+                                          "${DateTime.now().day} / ${DateTime.now().month} / ${DateTime.now().year}  ",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(color: Colors.black))
+                                ])),
+                            RichText(
+                                text: TextSpan(
+                                    text: "Invoice No.  \n",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(color: Colors.grey),
+                                    children: [
+                                  TextSpan(
+                                      text: "      $invoiceNo",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(color: Colors.black))
+                                ])),
+                          ],
+                        ),
+                      ),
+                      const Divider(
+                        color: Colors.transparent,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RichText(
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          maxLines: 5,
+                          text: TextSpan(
+                              text: "Billed To.\n",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(color: Colors.grey),
                               children: [
-                                RichText(
-                                    text: TextSpan(
-                                        text: "Date of Issue.  \n",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(color: Colors.grey),
-                                        children: [
-                                      TextSpan(
-                                          text:
-                                              "${DateTime.now().day} / ${DateTime.now().month} / ${DateTime.now().year}  ",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium
-                                              ?.copyWith(color: Colors.black))
-                                    ])),
-                                RichText(
-                                    text: TextSpan(
-                                        text: "Invoice No.  \n",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(color: Colors.grey),
-                                        children: [
-                                      TextSpan(
-                                          text: "      $invoiceNo",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium
-                                              ?.copyWith(color: Colors.black))
-                                    ])),
-                              ],
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.transparent,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: RichText(
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              maxLines: 5,
-                              text: TextSpan(
-                                  text: "Billed To.\n",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(color: Colors.grey),
-                                  children: [
-                                    TextSpan(
-                                        text: "${dataC["cusName"]}\n"
-                                            "${dataC["cusMNo"]}\n"
-                                            "${dataC["cusAd"]}\n",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                              color: Colors.black,
-                                              overflow: TextOverflow.ellipsis,
-                                            )),
-                                  ]),
-                            ),
-                          ),
-                        ],
+                                TextSpan(
+                                    text: "${dataC["cusName"]}\n"
+                                        "${dataC["cusMNo"]}\n"
+                                        "${dataC["cusAd"]}\n",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          color: Colors.black,
+                                          overflow: TextOverflow.ellipsis,
+                                        )),
+                              ]),
+                        ),
                       ),
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.transparent,
+                  ),
+                  Divider(
+                    thickness: 3,
+                    color: invoiceColor,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  DataTable(columns: [
+                    DataColumn(
+                        label: Text(
+                      "Product Name",
+                      style: TextStyle(color: invoiceColor),
+                    )),
+                    DataColumn(
+                        label: Text("Quantity",
+                            style: TextStyle(color: invoiceColor))),
+                    DataColumn(
+                        label: Text("Price ",
+                            style: TextStyle(color: invoiceColor)))
+                  ], rows: [
+                    for (int a = 0; a < dataP["productName"].length; a++)
+                      DataRow(cells: [
+                        DataCell(Text("${dataP["productName"][a]}")),
+                        const DataCell(Center(child: Text("1" /*Quantity*/))),
+                        DataCell(
+                            Center(child: Text("${dataP["price"][a]}"))),
+                      ])
+                  ]),
+                  const Divider(
+                    color: Colors.transparent,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text("Sub Total\n",
+                                style: TextStyle(color: invoiceColor)),
+                            Text("Tax\n",
+                                style: TextStyle(color: invoiceColor)),
+                            Text("Total\n",
+                                style: TextStyle(color: invoiceColor)),
+                            Text("Total Amount to be Paid",
+                                style: TextStyle(color: invoiceColor)),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text("$total.00 ₹\n",
+                                style: TextStyle(color: invoiceColor)),
+                            Text("0.00 ₹\n",
+                                style: TextStyle(color: invoiceColor)),
+                            Text("$total.00 ₹\n",
+                                style: TextStyle(color: invoiceColor)),
+                            Text("$total.00 ₹",
+                                style: TextStyle(color: invoiceColor)),
+                          ],
+                        ),
+                      ],
                     ),
-                    Divider(
-                      color: Colors.transparent,
-                    ),
-                    Divider(
-                      thickness: 3,
-                      color: invoiceColor,
-                      indent: 10,
-                      endIndent: 10,
-                    ),
-                    Container(
-                      child: DataTable(columns: [
-                        DataColumn(
-                            label: Text(
-                          "Product Name",
-                          style: TextStyle(color: invoiceColor),
-                        )),
-                        DataColumn(
-                            label: Text("Quantity",
-                                style: TextStyle(color: invoiceColor))),
-                        DataColumn(
-                            label: Text("Price ",
-                                style: TextStyle(color: invoiceColor)))
-                      ], rows: [
-                        for (int a = 0; a < dataP["productName"].length; a++)
-                          DataRow(cells: [
-                            DataCell(Text("${dataP["productName"][a]}")),
-                            DataCell(Center(child: Text("1" /*Quantity*/))),
-                            DataCell(
-                                Center(child: Text("${dataP["price"][a]}"))),
-                          ])
-                      ]),
-                    ),
-                    Divider(
-                      color: Colors.transparent,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text("Sub Total\n",
-                                  style: TextStyle(color: invoiceColor)),
-                              Text("Tax\n",
-                                  style: TextStyle(color: invoiceColor)),
-                              Text("Total\n",
-                                  style: TextStyle(color: invoiceColor)),
-                              Text("Total Amount to be Paid",
-                                  style: TextStyle(color: invoiceColor)),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text("$total.00 ₹\n",
-                                  style: TextStyle(color: invoiceColor)),
-                              Text("0.00 ₹\n",
-                                  style: TextStyle(color: invoiceColor)),
-                              Text("$total.00 ₹\n",
-                                  style: TextStyle(color: invoiceColor)),
-                              Text("$total.00 ₹",
-                                  style: TextStyle(color: invoiceColor)),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               )
             ],
           ),

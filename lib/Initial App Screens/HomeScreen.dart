@@ -1,11 +1,11 @@
-import 'package:bill_maker_ui/About%20Us/AboutUs.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bill_maker_ui/Customers/Customers.dart';
-import 'package:bill_maker_ui/Initial%20App%20Screens/Register.dart';
-import 'package:bill_maker_ui/Intro/Introduction.dart';
-import 'package:bill_maker_ui/Invoices/MakeInvoice01.dart';
-import 'package:bill_maker_ui/Products/Products.dart';
-import 'package:bill_maker_ui/Invoices/ShowInvoices.dart';
+import 'package:bill_maker_ui/Extras/AboutUs.dart';
 import 'package:bill_maker_ui/Initial%20App%20Screens/SplashScreen.dart';
+import 'package:bill_maker_ui/Invoices/MakeInvoice01.dart';
+import 'package:bill_maker_ui/Invoices/ShowInvoices.dart';
+import 'package:bill_maker_ui/Products/Products.dart';
 import 'package:bill_maker_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextStyle style =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white);
+      const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => AboutUs()));
+                      .push(MaterialPageRoute(builder: (context) => const AboutUs()));
                 },
-                icon: Icon(Icons.info_outline))
+                icon: const Icon(Icons.info_outline))
           ]),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.fill,
-                image: AssetImage("assets/images/bill_ui_bg(1).jpg"),
+                image: const AssetImage("assets/images/bill_ui_bg(1).jpg"),
                 colorFilter: ColorFilter.mode(
                     Colors.white.withOpacity(0.2), BlendMode.dstATop))),
         child: Center(
@@ -52,29 +52,29 @@ class _HomeScreenState extends State<HomeScreen> {
               navigatingButton(context,
                   text: 'Products',
                   operation: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Products()))),
-              Divider(
+                      MaterialPageRoute(builder: (context) => const Products()))),
+              const Divider(
                 color: Colors.transparent,
               ),
               navigatingButton(context,
                   text: 'Customers',
                   operation: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Coustomers()))),
-              Divider(
+                      MaterialPageRoute(builder: (context) => const Coustomers()))),
+              const Divider(
                 color: Colors.transparent,
               ),
               navigatingButton(context,
                   text: 'Make Invoice',
                   operation: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MakeInvoice1()))),
-              Divider(
+                      MaterialPageRoute(builder: (context) => const MakeInvoice1()))),
+              const Divider(
                 color: Colors.transparent,
               ),
               navigatingButton(context,
                   text: 'Show Invoices',
                   operation: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ShowInvoices()))),
-              Divider(
+                      MaterialPageRoute(builder: (context) => const ShowInvoices()))),
+              const Divider(
                 color: Colors.transparent,
               ),
               navigatingButton(context,
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(30)),
                             elevation: 5,
                             actionsAlignment: MainAxisAlignment.spaceEvenly,
-                            title: Text("Are you sure you want to logout ?"),
+                            title: const Text("Are you sure you want to logout ?"),
                             actions: [
                               TextButton(
                                   onPressed: () async {
@@ -97,14 +97,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SplashScreen()));
+                                                const SplashScreen()));
                                   },
-                                  child: Text("YES")),
+                                  child: const Text("YES")),
                               TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text("NO")),
+                                  child: const Text("NO")),
                             ],
                           ))),
             ],
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Card navigatingButton(BuildContext context,
       {required String text,
-      required operation(),
+      required Function() operation,
       IconData icon = Icons.forward}) {
     return Card(
       shadowColor: Colors.black,
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: InkWell(
           onTap: operation,
           child: Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
